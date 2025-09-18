@@ -5,6 +5,8 @@ import './App.css';
 import Footer from './Components/Footer';
 import HomePage from './Pages/HomePage';
 import ContactPage from './Pages/ContactPage';
+import Ticker from './Components/Ticker';
+import AboutUs from './Pages/AboutUs';
 
 function App() {
   const videoRef = useRef(null);
@@ -42,9 +44,16 @@ function App() {
         <div id="home">
           <HomePage />
         </div>
+        <div id="ticker">
+          <Ticker/>
+        </div>
+        <div id='about'>
+           <AboutUs/>
+        </div>
         <div id="contact">
           <ContactPage />
         </div>
+       
         <Footer/>
       </div>
     </div>

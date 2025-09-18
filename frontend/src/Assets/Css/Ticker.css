@@ -1,0 +1,53 @@
+.tilted-ticker-container {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(29, 233, 255, 0.3);
+  border-bottom: 1px solid rgba(29, 233, 255, 0.3);
+  transform: rotate(-5deg); /* tilt upward from right side */
+  transform-origin: left bottom;
+  width: 100%;
+  padding: 3rem 0; /* increase top/bottom space */
+  height: 120px;   /* fixed height (adjust as needed) */
+}
+
+.ticker-content {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerScroll 20s linear infinite;
+}
+
+.ticker-items {
+  display: flex;
+  align-items: center;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.ticker-separator {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+@keyframes tickerScroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

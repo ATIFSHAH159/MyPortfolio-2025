@@ -1,4 +1,10 @@
 /* HomePage.css - Only changed the React icon sizing */
+.blackhole-video {
+  position: absolute;
+  object-fit: fill;
+  opacity: 0.05; /* very less opacity */
+  pointer-events: none; /* make it non-interactive */
+}
 
 /* Social icon styles */
 .social-link {

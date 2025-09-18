@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import profilePic from '../Assets/Images/profilepicture.png';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaDownload, FaPaperPlane } from 'react-icons/fa';
 import '../Assets/Css/HomePage.css';
+import blackhole from '../Assets/Videos/blackhole.mp4'
 
 function HomePage() {
     const [typedRole, setTypedRole] = useState('');
@@ -138,13 +139,24 @@ function HomePage() {
 
     return (
         <>
+
             <motion.div
                 className="landing-container landing-rounded"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
+
                 <div className="half-width-boxleft">
+                                     {/* Blackhole Video Background */}
+  <video
+    className="blackhole-video"
+    src={blackhole}
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
                     <motion.div className="intro-block" variants={containerVariants}>
                         <motion.p className="hello-text" variants={itemVariants}>
                             Hello, It's Me
@@ -204,6 +216,7 @@ function HomePage() {
                     </motion.div>
                 </div>
                 <div className="half-width-boxright">
+                    
                     <motion.div
                         className="profile-image-wrapper profile-glow"
                         variants={imageVariants}
@@ -238,6 +251,8 @@ function HomePage() {
                     </motion.div>
                 </div>
             </motion.div>
+            <br></br>
+            
         </>
     );
 }
