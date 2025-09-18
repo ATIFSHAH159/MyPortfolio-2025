@@ -1,0 +1,425 @@
+/* Skills Header */
+.skills-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+  }
+  
+  .skills-main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: #1de9ff;
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(29, 233, 255, 0.5);
+    animation: gradientShift 4s ease-in-out infinite;
+    letter-spacing: 2px;
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  .skills-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+  
+  
+  .skills-page {
+    min-height: 100vh;
+    padding: 2rem;
+    background: transparent;
+    color: var(--text-primary);
+  }
+  
+  .skills-top-section {
+    display: flex;
+    width: 100%;
+    min-height: 70vh;
+    margin-bottom: 2rem;
+    gap: 2rem;
+  }
+  
+  .solar-system-container {
+    flex: 3;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .tech-video-container {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .tech-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .all-skills-section {
+    width: 100%;
+    padding: 2rem;
+    background: transparent;
+    backdrop-filter: blur(5px);
+    border-top: 2px solid rgba(29, 233, 255, 0.5);
+    border-bottom: 2px solid rgba(29, 233, 255, 0.5);
+  }
+  
+  /* Stars */
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle 5s infinite;
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  
+  /* Solar System */
+  .solar-system {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sun {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #FFD700, #FF8C00);
+    border-radius: 50%;
+    box-shadow: 0 0 50px #FFD700, 0 0 100px #FF8C00;
+    z-index: 10;
+    animation: rotate 20s linear infinite;
+  }
+  
+  /* Orbit styling - these are the circular paths */
+  .orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(29, 233, 255, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotate linear infinite;
+  }
+  
+  /* Planet positioning - key fix here */
+  .planet {
+    position: absolute;
+    top: -25px; /* Half of typical planet size to center on orbit */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    /* Counter-rotate the planet so it doesn't spin */
+    animation: counterRotate linear infinite;
+  }
+  
+  /* Counter rotation to keep planets upright */
+  @keyframes counterRotate {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(-360deg); }
+  }
+  
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  .planet:hover {
+    transform: translateX(-50%) scale(1.2);
+    filter: brightness(1.2);
+  }
+  
+  .planet:hover {
+    animation-play-state: paused;
+  }
+  
+  .planet-logo {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  }
+  
+  .planet-name {
+    position: absolute;
+    bottom: -35px;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
+  
+  .planet:hover .planet-name {
+    opacity: 1;
+  }
+  
+  /* Skill Info */
+  .skill-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    max-width: 300px;
+    border: 1px solid var(--border-glow);
+    box-shadow: 0 0 20px var(--border-glow);
+    z-index: 100;
+  }
+  
+  .skill-info h3 {
+    margin-bottom: 0.5rem;
+    color: #1de9ff;
+  }
+  
+  .skill-hint {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 0.5rem;
+  }
+  
+  /* Skills List */
+  .skills-list-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1de9ff;
+    text-align: center;
+  }
+  
+  /* Skills Ticker */
+  .skills-ticker-container {
+    overflow: hidden;
+    position: relative;
+
+  }
+  
+  .skills-ticker {
+    display: flex;
+    animation: scrollLeft 20s linear infinite;
+    gap: 2rem;
+    padding-left: 100%;
+  }
+  
+  @keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .skill-ticker-item {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 1rem 1.5rem;
+    border-radius: 2rem;
+    min-width: 150px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  .skill-ticker-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .skill-ticker-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.75rem;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  }
+  
+  /* Sync planet counter-rotation with orbit rotation */
+  .orbit:nth-child(2) { animation-duration: 30s; }
+  .orbit:nth-child(2) .planet { animation-duration: 30s; }
+  
+  .orbit:nth-child(3) { animation-duration: 35s; }
+  .orbit:nth-child(3) .planet { animation-duration: 35s; }
+  
+  .orbit:nth-child(4) { animation-duration: 40s; }
+  .orbit:nth-child(4) .planet { animation-duration: 40s; }
+  
+  .orbit:nth-child(5) { animation-duration: 45s; }
+  .orbit:nth-child(5) .planet { animation-duration: 45s; }
+  
+  .orbit:nth-child(6) { animation-duration: 50s; }
+  .orbit:nth-child(6) .planet { animation-duration: 50s; }
+  
+  .orbit:nth-child(7) { animation-duration: 55s; }
+  .orbit:nth-child(7) .planet { animation-duration: 55s; }
+  
+  .orbit:nth-child(8) { animation-duration: 60s; }
+  .orbit:nth-child(8) .planet { animation-duration: 60s; }
+  
+  .orbit:nth-child(9) { animation-duration: 65s; }
+  .orbit:nth-child(9) .planet { animation-duration: 65s; }
+  
+  .orbit:nth-child(10) { animation-duration: 70s; }
+  .orbit:nth-child(10) .planet { animation-duration: 70s; }
+  
+  .orbit:nth-child(11) { animation-duration: 75s; }
+  .orbit:nth-child(11) .planet { animation-duration: 75s; }
+  
+  .orbit:nth-child(12) { animation-duration: 80s; }
+  .orbit:nth-child(12) .planet { animation-duration: 80s; }
+  
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .solar-system {
+      width: 700px;
+      height: 700px;
+    }
+    
+    .skills-main-title {
+      font-size: 3rem;
+    }
+    
+    .skills-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .skills-top-section {
+      flex-direction: column;
+    }
+    
+    .solar-system {
+      width: 600px;
+      height: 600px;
+    }
+    
+    .sun {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .planet {
+      top: -20px;
+    }
+    
+    .skills-main-title {
+      font-size: 2.5rem;
+    }
+    
+    .skills-subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .skills-page {
+      padding: 1rem;
+    }
+    
+    .solar-system {
+      width: 450px;
+      height: 450px;
+    }
+    
+    .skills-list-title {
+      font-size: 1.8rem;
+    }
+    
+    .skill-ticker-item {
+      min-width: 130px;
+      padding: 0.8rem 1.2rem;
+    }
+    
+    .planet {
+      top: -18px;
+    }
+    
+    .skills-main-title {
+      font-size: 2rem;
+    }
+    
+    .skills-subtitle {
+      font-size: 0.9rem;
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .solar-system {
+      width: 350px;
+      height: 350px;
+    }
+    
+    .sun {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .planet {
+      top: -15px;
+      transform: translateX(-50%) scale(0.8);
+    }
+    
+    .skills-list-title {
+      font-size: 1.5rem;
+    }
+    
+    .skill-ticker-item {
+      min-width: 120px;
+      padding: 0.7rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .skill-ticker-icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .skills-main-title {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .skills-subtitle {
+      font-size: 0.8rem;
+    }
+    
+    .skills-header {
+      margin-bottom: 2rem;
+      padding: 1rem 0;
+    }
+  }
