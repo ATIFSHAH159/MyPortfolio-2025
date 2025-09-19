@@ -12,7 +12,7 @@
   margin: var(--spacing-md) auto;
   max-width: 900px;
   width: 95%;
-  /* position: sticky; */
+  position: sticky;
   top: var(--spacing-md);
   z-index: var(--z-fixed);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import technologies from '../Assets/Videos/technologies.mp4';
 import '../Assets/Css/Skills.css';
-
+import blackhole from '../Assets/Videos/blackhole.mp4'
 const Skills = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
 
@@ -134,6 +134,15 @@ const Skills = () => {
 
   return (
     <div className="skills-page">
+        <video
+    className="blackhole-video"
+    src={blackhole}
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+         
       <div className="skills-header">
         <h1 className="skills-main-title">My Skill Universe</h1>
         <p className="skills-subtitle">Exploring the vast galaxy of technologies I've mastered in my development journey</p>

@@ -4,6 +4,13 @@
     margin-bottom: 3rem;
     padding: 2rem 0;
   }
+  .blackhole-video {
+    position: absolute;
+    object-fit: fill;
+    opacity: 0.1; /* very less opacity */
+    pointer-events: none; /* make it non-interactive */
+  }
+  
   
   .skills-main-title {
     font-size: 3.5rem;

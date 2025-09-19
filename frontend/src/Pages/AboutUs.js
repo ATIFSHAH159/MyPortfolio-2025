@@ -3,6 +3,8 @@ import digitalbrain from '../Assets/Images/digital brain (2).png'
 import about from '../Assets/Images/About.png'
 import globe from '../Assets/Videos/glob.mp4'
 import '../Assets/Css/AboutUs.css'
+import robot from '../Assets/Images/astronaut2.jpg'
+import robot2 from '../Assets/Images/minirobot.png'
 
 function AboutUs() {
     // Animation variants
@@ -95,10 +97,55 @@ function AboutUs() {
         }
     }
 
+    // Background image animation variants
+    const leftBackgroundVariants = {
+        animate: {
+            y: [0, -30, 0],
+            x: [0, 10, 0],
+            rotate: [0, 5, 0],
+            transition: {
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    }
+
+    const rightBackgroundVariants = {
+        animate: {
+            y: [0, -20, 0],
+            x: [0, -10, 0],
+            rotate: [0, -3, 0],
+            scale: [1, 1.05, 1],
+            transition: {
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        }
+    }
+
     return (
         <>
         <br></br>
- <div className="about-us-container">
+        <div className="about-us-container">
+            {/* Background Images */}
+            <motion.div 
+                className="bg-image bg-image-left"
+                variants={leftBackgroundVariants}
+                animate="animate"
+            >
+                <img src={robot} alt="Background Robot" />
+            </motion.div>
+            
+            <motion.div 
+                className="bg-image bg-image-right"
+                variants={rightBackgroundVariants}
+                animate="animate"
+            >
+                <img src={robot2} alt="Background Mini Robot" />
+            </motion.div>
+
             {/* Cosmic Background Elements */}
             <div className="cosmic-bg">
                 <motion.div className="star star-1" variants={starVariants} animate="animate" />
@@ -314,8 +361,8 @@ function AboutUs() {
                     </motion.div>
                 </div>
             </motion.div>
-            </div>
-            </>
+        </div>
+        </>
     )
 }
 
