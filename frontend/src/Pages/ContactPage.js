@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import '../Assets/Css/ContactPage.css';
-
 function ContactForm() {
   const containerRef = useRef(null);
   const [isAwake, setIsAwake] = useState(false);
@@ -120,7 +119,6 @@ function ContactForm() {
       <div
         className="contact-bg"
         style={{
-          // keep dynamic gradient origin tied to cursor
           background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(29,233,255,0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(138,43,226,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(29,233,255,0.05) 0%, transparent 50%)`
         }}
       />
@@ -141,64 +139,23 @@ function ContactForm() {
         />
       ))}
 
-      <style jsx>{`
-        @keyframes twinkle {
-          from { opacity: 0.2; transform: scale(1); }
-          to { opacity: 1; transform: scale(1.2); }
-        }
-        @keyframes ringOrbit {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
-        }
-        @keyframes rocketLaunch {
-          0% { transform: translateX(-50%) translateY(0) rotate(0deg); opacity: 1; }
-          70% { transform: translateX(-50%) translateY(-70vh) rotate(-10deg); }
-          100% { transform: translateX(-50%) translateY(-120vh) rotate(-15deg); opacity: 0; }
-        }
-        @keyframes flame {
-          0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
-          50% { transform: translateX(-50%) scaleY(0.7) scaleX(1.2); }
-        }
-      `}</style>
-
       <div className="contact-grid">
         
         {/* Avatar Section */}
         <div 
           ref={containerRef}
-          style={{
-            position: 'relative',
-            minHeight: '500px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            perspective: '1200px'
-          }}
+          className="avatar-container"
         >
           {/* Status Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
+            className="status-badge"
             style={{
-              position: 'absolute',
-              top: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
               background: isAwake ? 'rgba(29,233,255,0.2)' : 'rgba(138,43,226,0.2)',
               border: `1px solid ${isAwake ? '#1de9ff' : '#8a2be2'}`,
               color: isAwake ? '#1de9ff' : '#8a2be2',
-              padding: '0.5rem 1rem',
-              borderRadius: '999px',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              backdropFilter: 'blur(10px)',
               boxShadow: `0 0 20px ${isAwake ? 'rgba(29,233,255,0.3)' : 'rgba(138,43,226,0.3)'}`,
-              zIndex: 10
             }}
           >
             {isAwake ? '🚀 Ready for Contact!' : '😴 Sleeping...' }
@@ -210,113 +167,31 @@ function ContactForm() {
             animate={isAwake ? 'awake' : 'sleep'}
             variants={headVariants}
             whileHover={{ scale: 1.05, y: -10 }}
-            style={{
-              position: 'relative',
-              width: '400px',
-              height: '400px',
-              background: `
-                linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)),
-                radial-gradient(circle at 30% 30%, rgba(29,233,255,0.2), transparent 70%),
-                radial-gradient(circle at 70% 70%, rgba(138,43,226,0.15), transparent 70%)
-              `,
-              borderRadius: '40% 60% 50% 70% / 60% 40% 70% 50%',
-              border: '2px solid rgba(29,233,255,0.3)',
-              boxShadow: `
-                inset 0 0 80px rgba(29,233,255,0.1),
-                0 20px 100px rgba(0,0,0,0.5),
-                0 0 100px rgba(29,233,255,0.2)
-              `,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
-              cursor: 'pointer'
-            }}
-            onClick={() => setIsAwake(!isAwake)}
+            className="avatar-main"
           >
             {/* Helmet */}
             <motion.div
-              style={{
-                position: 'absolute',
-                top: '15%',
-                width: '70%',
-                height: '40%',
-                background: `
-                  radial-gradient(circle at 40% 30%, rgba(29,233,255,0.4), rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 80%),
-                  linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))
-                `,
-                borderRadius: '50%',
-                border: '1px solid rgba(29,233,255,0.5)',
-                boxShadow: `
-                  inset 0 0 40px rgba(29,233,255,0.2),
-                  0 10px 30px rgba(0,0,0,0.3)
-                `,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
+              className="avatar-helmet"
             >
               {/* Helmet Reflection */}
-              <div style={{
-                position: 'absolute',
-                top: '20%',
-                left: '25%',
-                width: '30%',
-                height: '40%',
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.6), transparent)',
-                borderRadius: '50%',
-                filter: 'blur(2px)'
-              }} />
+              <div className="helmet-reflection" />
               
               {/* Orbital Ring */}
-              <div style={{
-                position: 'absolute',
-                inset: '-15%',
-                border: '2px dashed rgba(29,233,255,0.4)',
-                borderRadius: '50%',
-                animation: 'ringOrbit 15s linear infinite'
-              }} />
+              <div className="orbital-ring" />
             </motion.div>
 
             {/* Face Container */}
-            <div style={{
-              position: 'absolute',
-              bottom: '20%',
-              width: '80%',
-              height: '40%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '1rem'
-            }}>
+            <div className="face-container">
               {/* Eyes */}
-              <div style={{
-                display: 'flex',
-                gap: '2rem',
-                alignItems: 'center'
-              }}>
+              <div className="eyes-container">
                 {/* Left Eye */}
-                <div style={{
-                  position: 'relative',
-                  width: '80px',
-                  height: '50px',
-                  background: 'rgba(0,0,0,0.7)',
-                  borderRadius: '25px',
-                  border: '2px solid rgba(29,233,255,0.3)',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                <div className="eye">
                   <motion.div
+                    className="pupil"
                     style={{
-                      width: '20px',
-                      height: '20px',
                       background: isAwake ? 
                         'radial-gradient(circle, #1de9ff, #0066cc)' : 
                         'radial-gradient(circle, #666, #333)',
-                      borderRadius: '50%',
                       boxShadow: isAwake ? 
                         '0 0 15px #1de9ff, inset 0 0 8px rgba(0,0,0,0.3)' : 
                         '0 0 8px rgba(255,255,255,0.2)',
@@ -333,37 +208,18 @@ function ContactForm() {
                     }
                     variants={eyeVariants}
                     transition={{ duration: 0.2 }}
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(180deg, rgba(0,0,0,0.8), transparent 60%)',
-                      borderRadius: '25px',
-                      transformOrigin: 'center'
-                    }}
+                    className="eyelid"
                   />
                 </div>
 
                 {/* Right Eye */}
-                <div style={{
-                  position: 'relative',
-                  width: '80px',
-                  height: '50px',
-                  background: 'rgba(0,0,0,0.7)',
-                  borderRadius: '25px',
-                  border: '2px solid rgba(29,233,255,0.3)',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                <div className="eye">
                   <motion.div
+                    className="pupil"
                     style={{
-                      width: '20px',
-                      height: '20px',
                       background: isAwake ? 
                         'radial-gradient(circle, #1de9ff, #0066cc)' : 
                         'radial-gradient(circle, #666, #333)',
-                      borderRadius: '50%',
                       boxShadow: isAwake ? 
                         '0 0 15px #1de9ff, inset 0 0 8px rgba(0,0,0,0.3)' : 
                         '0 0 8px rgba(255,255,255,0.2)',
@@ -380,19 +236,14 @@ function ContactForm() {
                     }
                     variants={eyeVariants}
                     transition={{ duration: 0.2 }}
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(180deg, rgba(0,0,0,0.8), transparent 60%)',
-                      borderRadius: '25px',
-                      transformOrigin: 'center'
-                    }}
+                    className="eyelid"
                   />
                 </div>
               </div>
 
               {/* Mouth */}
               <motion.div
+                className="mouth"
                 animate={{
                   scaleY: !isAwake ? 0.2 : isHovering ? 0.8 : 1,
                   borderRadius: !isAwake ? '50%/50%' : isHovering ? '20px/8px' : '16px/12px',
@@ -401,10 +252,7 @@ function ContactForm() {
                 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
                 style={{
-                  width: '60px',
-                  height: '20px',
-                  boxShadow: isAwake ? '0 0 20px rgba(29,233,255,0.5)' : '0 0 10px rgba(138,43,226,0.3)',
-                  filter: 'blur(0.5px)'
+                  boxShadow: isAwake ? '0 0 20px rgba(29,233,255,0.5)' : '0 0 10px rgba(138,43,226,0.3)'
                 }}
               />
             </div>
@@ -422,14 +270,7 @@ function ContactForm() {
                 repeat: isAwake ? 0 : Infinity,
                 ease: 'easeInOut'
               }}
-              style={{
-                position: 'absolute',
-                top: '10%',
-                right: '15%',
-                fontSize: '2rem',
-                color: '#8a2be2',
-                textShadow: '0 0 10px #8a2be2'
-              }}
+              className="sleep-indicator"
             >
               💤
             </motion.div>
@@ -445,11 +286,11 @@ function ContactForm() {
             className="form-card"
           >
             <h2 className="form-title">
-              Contact Mission Control
+              Contact Form
             </h2>
             
             <p className="form-subtitle">
-              Ready to launch your next project into orbit?
+              Feel Free to Contact if You Have Any Query....
             </p>
 
             <form 
@@ -464,17 +305,17 @@ function ContactForm() {
             >
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="name" className="form-label">Your Name</label>
-                <input id="name" type="text" placeholder="e.g., Captain Stellar" required className="form-input" />
+                <input id="name" type="text" placeholder="e.g., Syed Atif Shah" required className="form-input" />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="email" className="form-label">Email</label>
-                <input id="email" type="email" placeholder="captain@starship.space" required className="form-input" />
+                <input id="email" type="email" placeholder="captain@gmail.com" required className="form-input" />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="title" className="form-label">Project title</label>
-                <input id="title" type="text" placeholder="Deep Space Exploration" required className="form-input" />
+                <input id="title" type="text" placeholder="E-Commerce Website" required className="form-input" />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
@@ -492,7 +333,7 @@ function ContactForm() {
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="description" className="form-label">Project description</label>
-                <textarea id="description" rows={4} placeholder="Describe your interstellar project requirements..." required className="form-textarea" />
+                <textarea id="description" rows={4} placeholder="Describe your project requirements..." required className="form-textarea" />
               </motion.div>
 
               <motion.button
@@ -509,7 +350,7 @@ function ContactForm() {
                   </>
                 ) : (
                   <>
-                    🚀 Launch Message
+                    🚀 Send Mail
                   </>
                 )}
               </motion.button>
@@ -523,103 +364,28 @@ function ContactForm() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          style={{
-            position: 'fixed',
-            bottom: '-100px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1000,
-            animation: 'rocketLaunch 2s ease-out forwards'
-          }}
+          className="rocket-container"
+          style={{ animation: 'rocketLaunch 2s ease-out forwards' }}
         >
-          <div style={{
-            position: 'relative',
-            width: '30px',
-            height: '60px'
-          }}>
+          <div style={{ position: 'relative', width: '30px', height: '60px' }}>
             {/* Rocket Body */}
-            <div style={{
-              width: '30px',
-              height: '60px',
-              background: 'linear-gradient(180deg, #ffffff, #e0e0e0)',
-              borderRadius: '15px 15px 8px 8px',
-              boxShadow: '0 0 20px rgba(255,255,255,0.8)',
-              position: 'relative'
-            }}>
+            <div className="rocket-body">
               {/* Nose Cone */}
-              <div style={{
-                position: 'absolute',
-                top: '-18px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 0,
-                height: 0,
-                borderLeft: '15px solid transparent',
-                borderRight: '15px solid transparent',
-                borderBottom: '20px solid #1de9ff',
-                filter: 'drop-shadow(0 0 10px #1de9ff)'
-              }} />
+              <div className="nose-cone" />
               
               {/* Window */}
-              <div style={{
-                position: 'absolute',
-                top: '20px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '14px',
-                height: '14px',
-                background: '#0a0a0a',
-                borderRadius: '50%',
-                border: '3px solid #1de9ff'
-              }} />
+              <div className="rocket-window" />
               
               {/* Fins */}
-              <div style={{
-                position: 'absolute',
-                bottom: '-3px',
-                left: '-12px',
-                width: '14px',
-                height: '16px',
-                background: '#1de9ff',
-                clipPath: 'polygon(0 100%, 100% 0, 100% 100%)'
-              }} />
-              <div style={{
-                position: 'absolute',
-                bottom: '-3px',
-                right: '-12px',
-                width: '14px',
-                height: '16px',
-                background: '#1de9ff',
-                clipPath: 'polygon(0 0, 100% 100%, 0 100%)'
-              }} />
+              <div className="fin fin-left" />
+              <div className="fin fin-right" />
             </div>
             
             {/* Flame */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-25px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '16px',
-              height: '25px',
-              background: 'radial-gradient(circle at 50% 0%, #ffffff, #1de9ff, #ff6b00)',
-              borderRadius: '50%',
-              filter: 'blur(2px)',
-              animation: 'flame 0.2s ease-in-out infinite alternate'
-            }} />
+            <div className="flame" />
             
             {/* Exhaust Trail */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-60px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '3px',
-              height: '80px',
-              background: 'linear-gradient(180deg, #1de9ff, transparent)',
-              filter: 'blur(2px)',
-              opacity: 0.8
-            }} />
+            <div className="exhaust-trail" />
           </div>
         </motion.div>
       )}
@@ -630,54 +396,23 @@ function ContactForm() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(10px)',
-            zIndex: 1001
-          }}
+          className="success-overlay"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            style={{
-              background: 'linear-gradient(135deg, rgba(29,233,255,0.2), rgba(138,43,226,0.2))',
-              border: '2px solid rgba(29,233,255,0.5)',
-              borderRadius: '20px',
-              padding: '2rem 3rem',
-              textAlign: 'center',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 100px rgba(29,233,255,0.3)'
-            }}
+            className="success-content"
           >
-            <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>
-            <h3 style={{
-              fontSize: '1.8rem',
-              marginBottom: '0.5rem',
-              background: 'linear-gradient(135deg, #1de9ff, #8a2be2)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}>
-              Mission Successful!
+            <div className="success-emoji">🎉</div>
+            <h3 className="success-title">
+              Mail Send Successfully!
             </h3>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem' }}>
-              Your message has been launched into cyberspace!
+            <p className="success-message">
+              Your message has been launched....
             </p>
           </motion.div>
         </motion.div>
       )}
-
-      {/* Additional CSS animations */}
-      <style jsx>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

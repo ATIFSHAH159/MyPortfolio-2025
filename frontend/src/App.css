@@ -172,7 +172,7 @@ ul, ol {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.9); /* Adjust brightness so content is readable */
+  filter: brightness(0.1); /* Adjust brightness so content is readable */
 }
 
 .main-content {
@@ -244,3 +244,4 @@ html { scroll-behavior: smooth; }
     padding: 0 var(--spacing-sm);
   }
 }
+

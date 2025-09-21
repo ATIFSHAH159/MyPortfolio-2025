@@ -1,0 +1,115 @@
+/* WorkBanner.css */
+.stats {
+    background: transparent;
+    padding: 40px 0;
+    text-align: center;
+    height: auto;
+    width: 100%;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 150px;
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-box:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stat-box h3 {
+    font-size: 32px;
+    color: white;
+    margin: 0;
+    font-weight: 700;
+    display: flex;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+  }
+  
+  .stat-suffix {
+    font-size: 24px;
+    align-self: flex-start;
+  }
+  
+  .stat-box p {
+    font-size: 14px;
+    color: #ccc;
+    font-weight: 600;
+    margin: 5px 0 0;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+  
+  .stat-box:hover p {
+    color: #fff;
+  }
+  
+  /* Divider for larger screens */
+  .stat-divider {
+    height: 80px;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+  }
+  
+  .stats-container:hover .stat-divider {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Animation for numbers */
+  @keyframes countUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .stat-box h3 {
+    animation: countUp 1s ease-out forwards;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .stats-container {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+  
+    .stat-box h3 {
+      font-size: 28px;
+    }
+    
+    .stat-suffix {
+      font-size: 20px;
+    }
+  
+    .stat-box p {
+      font-size: 12px;
+    }
+  
+    .stat-divider {
+      height: 2px;
+      width: 50%;
+      margin: 10px auto;
+    }
+  }

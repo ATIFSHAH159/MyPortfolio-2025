@@ -8,7 +8,8 @@ import ContactPage from './Pages/ContactPage';
 import Ticker from './Components/Ticker';
 import AboutUs from './Pages/AboutUs';
 import Skills from './Pages/Skills';
-
+import WorkBanner from './Components/WorkBanner';
+import SpaceProjectsPage from './Pages/Projects';
 function App() {
   const videoRef = useRef(null);
 
@@ -53,6 +54,10 @@ function App() {
         </div>
         <div id='skills'>  
 <Skills/>
+        </div>
+        <div id='work'>
+          <SpaceProjectsPage/>
+          <WorkBanner/>
         </div>
         <div id="contact">
           <ContactPage />
