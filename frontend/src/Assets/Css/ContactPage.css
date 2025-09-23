@@ -8,6 +8,8 @@
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  padding-top: 120px; /* Add padding to prevent content from hiding behind menubar */
+  scroll-margin-top: 120px; /* Account for sticky menubar height */
 }
 
 /* Dynamic background */
@@ -461,6 +463,11 @@
 
 /* Responsive styles */
 @media (max-width: 900px) {
+  .contact-page {
+    padding-top: 100px; /* Reduce padding for smaller screens */
+    scroll-margin-top: 100px;
+  }
+  
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -480,5 +487,12 @@
   .pupil {
     width: 15px;
     height: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-page {
+    padding-top: 80px; /* Further reduce padding for mobile */
+    scroll-margin-top: 80px;
   }
 }

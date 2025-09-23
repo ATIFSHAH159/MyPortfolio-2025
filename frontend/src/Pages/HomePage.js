@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import profilePic from '../Assets/Images/profilepicture.png';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaDownload, FaPaperPlane } from 'react-icons/fa';
 import '../Assets/Css/HomePage.css';
-import robot from '../Assets/Images/minirobot.png'
 import backgroundimg from '../Assets/Images/astronaut.png'
+import Ticker from '../Components/Ticker';
+import cvFile from '../Assets/Documents/Atif Cv.pdf';
 
 function HomePage() {
     const [typedRole, setTypedRole] = useState('');
@@ -39,22 +40,17 @@ function HomePage() {
     // Social media links
     const socialLinks = [
         {
-            href: 'https://github.com/yourusername',
+            href: 'https://github.com/ATIFSHAH159',
             label: 'GitHub',
             icon: <FaGithub className="social-icon" />
         },
         {
-            href: 'https://linkedin.com/in/yourusername',
+            href: 'https://linkedin.com/in/atif-shah-b62008378/',
             label: 'LinkedIn',
             icon: <FaLinkedin className="social-icon" />
         },
         {
-            href: 'https://twitter.com/yourusername',
-            label: 'Twitter',
-            icon: <FaTwitter className="social-icon" />
-        },
-        {
-            href: 'https://instagram.com/yourusername',
+            href: 'https://instagram.com/atif_shah90',
             label: 'Instagram',
             icon: <FaInstagram className="social-icon" />
         }
@@ -202,8 +198,10 @@ function HomePage() {
                                 Hire Me
                             </motion.button>
                             <motion.a
-                                href="/Atif%20CV.pdf"
-                                download="ATIFCV.pdf"
+                                href={cvFile}
+                                download="Syed_Atif_Shah_CV.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="btn download-btn"
                                 variants={itemVariants}
                                 whileHover={{ scale: 1.07, boxShadow: "0 0 16px 2px #1de9ff" }}
@@ -251,6 +249,7 @@ function HomePage() {
                     </motion.div>
                 </div>
             </motion.div>
+            <Ticker/>
             <br></br>
             
         </>

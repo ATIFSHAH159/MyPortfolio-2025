@@ -1,31 +1,37 @@
-/* Navbar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: transparent;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-xl);
-  margin: var(--spacing-md) auto;
-  max-width: 900px;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(29, 233, 255, 0.3);
+  border-radius: 15px;
+  margin: 0 auto;
+  max-width: 1000px;
   width: 95%;
   position: sticky;
-  top: var(--spacing-md);
-  z-index: var(--z-fixed);
+  top: 0;
+  z-index: 100;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .nav-brand {
   flex-shrink: 0;
+  z-index: 101;
 }
 
 .logo {
   height: 80px;
   width: auto;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-menu {
@@ -33,9 +39,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-lg);
+  gap: 2rem;
   flex-grow: 1;
   justify-content: center;
+  transition: all 0.3s ease;
 }
 
 .nav-item {
@@ -43,17 +50,17 @@
 }
 
 .nav-link {
-  color: var(--text-color);
+  color: #ffffff;
   font-weight: 700;
-  font-size: var(--font-size-xl);
-  transition: var(--transition-normal);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
   position: relative;
-  padding: var(--spacing-sm) 0;
+  padding: 0.5rem 0;
   white-space: nowrap;
 }
 
 .nav-link:hover {
-  color: var(--primary-color);
+  color: #1de9ff;
   transform: translateY(-2px);
 }
 
@@ -64,108 +71,444 @@
   height: 2px;
   bottom: 2px;
   left: 0;
-  background-color: var(--primary-color);
-  transition: width var(--transition-normal);
+  background-color: #1de9ff;
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
   width: 100%;
 }
 
-.nav-contact {
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   flex-shrink: 0;
 }
 
-.contact-btn {
-  background: var(--primary-color);
-  color: var(--bg-primary);
-  border: none;
-  border-radius: var(--border-radius-circle);
-  width: 40px;
-  height: 40px;
+.theme-toggle {
+  background: rgba(29, 233, 255, 0.1);
+  color: #1de9ff;
+  border: 1px solid rgba(29, 233, 255, 0.3);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition-normal);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+  background: rgba(29, 233, 255, 0.2);
+  transform: translateY(-2px) rotate(15deg);
+  box-shadow: 0 4px 15px rgba(29, 233, 255, 0.4);
+}
+
+.contact-btn {
+  background: #1de9ff;
+  color: #000000;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
 
 .contact-btn:hover {
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--primary-color);
+  box-shadow: 0 4px 15px rgba(29, 233, 255, 0.6);
 }
 
-.contact-btn svg {
-  width: 18px;
-  height: 18px;
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(29, 233, 255, 0.1);
+  border: 1px solid rgba(29, 233, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Responsive breakpoints */
-@media (max-width: 900px) {
-  .navbar { 
-    max-width: 95%; 
-    padding: var(--spacing-md) var(--spacing-md); 
+.menu-toggle span {
+  width: 20px;
+  height: 2px;
+  background-color: #1de9ff;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.menu-toggle-active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle-active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(29, 233, 255, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: modalSlide 0.4s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(29, 233, 255, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  color: #1de9ff;
+}
+
+.modal-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: float 2s ease-in-out infinite;
+}
+
+.modal-title {
+  color: #1de9ff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.modal-message {
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.modal-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cosmic-element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.stars {
+  background: 
+    radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(29, 233, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(29, 233, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.sun-rays {
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%),
+    linear-gradient(-45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%),
+    linear-gradient(90deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%),
+    linear-gradient(0deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+  animation: sunGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlide {
+  from { 
+    opacity: 0; 
+    transform: translateY(-50px) scale(0.9); 
   }
-  .nav-menu { gap: var(--spacing-md); }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes sunGlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar {
+    max-width: 95%;
+    padding: 1rem;
+  }
+  .nav-menu { gap: 1.5rem; }
+  .logo { height: 70px; }
+}
+
+@media (max-width: 900px) {
+  .nav-menu { gap: 1rem; }
+  .nav-link { font-size: 1rem; }
   .logo { height: 65px; }
 }
 
 @media (max-width: 768px) {
-  .navbar { 
-    padding: var(--spacing-sm) var(--spacing-md); 
-    border-radius: var(--border-radius-lg); 
-    width: 98%; 
+  .navbar {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    width: 98%;
+    margin: 0 auto;
   }
-  .nav-menu { gap: var(--spacing-md); }
-  .nav-link { font-size: var(--font-size-lg); }
-  .logo { height: 55px; }
-  .contact-btn { width: 38px; height: 38px; }
+  
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: right 0.3s ease;
+    border-left: 1px solid rgba(29, 233, 255, 0.3);
+  }
+  
+  .nav-menu-active {
+    right: 0;
+  }
+  
+  .nav-link {
+    font-size: 1.2rem;
+    padding: 1rem 0;
+  }
+  
+  .logo { height: 60px; }
+  .theme-toggle, .contact-btn { 
+    width: 40px; 
+    height: 40px; 
+  }
 }
 
 @media (max-width: 640px) {
   .navbar {
-    flex-direction: row;
-    padding: var(--spacing-sm);
-    gap: var(--spacing-sm);
-    border-radius: var(--border-radius-md);
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    margin: 0 auto;
   }
-  .navbar::-webkit-scrollbar { display: none; }
-  .nav-menu { gap: var(--spacing-sm); min-width: fit-content; }
-  .nav-link { font-size: var(--font-size-md); padding: var(--spacing-xs) 0; }
-  .logo { height: 50px; }
-  .contact-btn { width: 35px; height: 35px; flex-shrink: 0; }
+  
+  .nav-menu {
+    width: 280px;
+    gap: 1.5rem;
+  }
+  
+  .nav-link { font-size: 1.1rem; }
+  .logo { height: 55px; }
+  .theme-toggle, .contact-btn { 
+    width: 38px; 
+    height: 38px; 
+  }
+  .theme-toggle svg, .contact-btn svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media (max-width: 480px) {
-  .navbar { 
-    width: 99%; 
-    margin: var(--spacing-sm) auto; 
-    padding: var(--spacing-sm); 
-    border-radius: var(--border-radius-sm); 
+  .navbar {
+    width: 99%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin: 0 auto;
   }
-  .nav-menu { 
-    gap: var(--spacing-sm); 
-    overflow-x: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
+  
+  .nav-actions {
+    gap: 0.5rem;
   }
-  .nav-menu::-webkit-scrollbar { display: none; }
-  .nav-link { font-size: var(--font-size-sm); min-width: fit-content; }
-  .logo { height: 45px; }
-  .contact-btn { width: 32px; height: 32px; }
-  .contact-btn svg { width: 16px; height: 16px; }
+  
+  .nav-menu {
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  .nav-link { font-size: 1rem; }
+  .logo { height: 50px; }
+  .theme-toggle, .contact-btn { 
+    width: 35px; 
+    height: 35px; 
+  }
+  .theme-toggle svg, .contact-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .menu-toggle {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .menu-toggle span {
+    width: 18px;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .modal-close {
+    width: 35px;
+    height: 35px;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  
+  .modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .modal-title {
+    font-size: 1.3rem;
+  }
+  
+  .modal-message {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 360px) {
-  .navbar { padding: var(--spacing-xs); border-radius: var(--border-radius-sm); }
-  .nav-menu { gap: var(--spacing-xs); }
-  .nav-link { font-size: var(--font-size-xs); padding: var(--spacing-xs) 0; }
-  .logo { height: 40px; }
-  .contact-btn { width: 30px; height: 30px; }
-  .contact-btn svg { width: 14px; height: 14px; }
+  .navbar { 
+    padding: 0.4rem; 
+    border-radius: 6px; 
+  }
+  
+  .nav-actions {
+    gap: 0.4rem;
+  }
+  
+  .nav-link { 
+    font-size: 0.9rem; 
+    padding: 0.5rem 0; 
+  }
+  
+  .logo { height: 45px; }
+  .theme-toggle, .contact-btn { 
+    width: 32px; 
+    height: 32px; 
+  }
+  .theme-toggle svg, .contact-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .menu-toggle {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .menu-toggle span {
+    width: 16px;
+  }
+  
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  .modal-close svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .modal-icon {
+    font-size: 2rem;
+  }
+  
+  .modal-title {
+    font-size: 1.1rem;
+  }
+  
+  .modal-message {
+    font-size: 0.85rem;
+  }
 }

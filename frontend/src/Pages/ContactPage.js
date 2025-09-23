@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import '../Assets/Css/ContactPage.css';
+import contactusimage from '../Assets/Images/contactusimage.jpg'
 function ContactForm() {
   const containerRef = useRef(null);
   const [isAwake, setIsAwake] = useState(false);

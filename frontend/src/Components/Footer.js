@@ -124,7 +124,9 @@ function Footer() {
             variants={containerVariants}
           >
             <motion.a 
-              href="#" 
+              href="https://linkedin.com/in/atif-shah-b62008378/" 
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               variants={socialVariants}
               whileHover="hover"
@@ -133,7 +135,9 @@ function Footer() {
               <FaLinkedin />
             </motion.a>
             <motion.a 
-              href="#" 
+              href="https://github.com/ATIFSHAH159" 
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="GitHub"
               variants={socialVariants}
               whileHover="hover"
@@ -142,7 +146,9 @@ function Footer() {
               <FaGithub />
             </motion.a>
             <motion.a 
-              href="#" 
+              href="https://instagram.com/atif_shah90" 
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               variants={socialVariants}
               whileHover="hover"
@@ -161,19 +167,40 @@ function Footer() {
           
           <motion.ul className="footer-menu" variants={containerVariants}>
             <motion.li variants={itemVariants}>
-              <a href="#home">Home</a>
+              <a href="#home" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+              }}>Home</a>
             </motion.li>
             <motion.li variants={itemVariants}>
-              <a href="#about">About</a>
+              <a href="#about" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+              }}>About</a>
             </motion.li>
             <motion.li variants={itemVariants}>
-              <a href="#Projects">Projects</a>
+              <a href="#skills" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+              }}>Skills</a>
             </motion.li>
             <motion.li variants={itemVariants}>
-              <a href="#skills">Skills</a>
+              <a href="#work" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+              }}>Projects</a>
             </motion.li>
             <motion.li variants={itemVariants}>
-              <a href="#contact">Contact</a>
+              <a href="#testimonials" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('testimonials').scrollIntoView({ behavior: 'smooth' });
+              }}>Testimonials</a>
+            </motion.li>
+            <motion.li variants={itemVariants}>
+              <a href="#contact" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+              }}>Contact</a>
             </motion.li>
           </motion.ul>
         </motion.div>
@@ -191,6 +218,10 @@ function Footer() {
               y: -5,
               transition: { type: "spring", stiffness: 300 }
             }}
+            onClick={() => {
+              document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{ cursor: 'pointer' }}
           >
             <div className="contact-icon">
               <FaEnvelope />

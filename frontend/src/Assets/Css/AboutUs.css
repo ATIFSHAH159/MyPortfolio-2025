@@ -3,6 +3,8 @@
     position: relative;
     overflow: hidden;
     min-height: 100vh;
+    scroll-margin-top: 120px; /* Account for sticky menubar height */
+    padding-top: 120px; /* Add padding to prevent content from hiding behind menubar */
 }
 
 .bg-image {
@@ -19,10 +21,10 @@
 }
 
 .bg-image-left {
-    top: 0;
+    top: 120px; /* Adjust for the padding-top */
     left: 0;
     width: 400px;
-    height: 100vh;
+    height: calc(100vh - 120px); /* Adjust height to account for padding */
     opacity: 0.5;
 }
 
@@ -31,10 +33,10 @@
 }
 
 .bg-image-right {
-    top: 0;
+    top: 120px; /* Adjust for the padding-top */
     right: 0;
     width: 300px;
-    height: 60vh;
+    height: calc(60vh - 120px); /* Adjust height to account for padding */
     opacity: 0.2;
 }
 
@@ -204,16 +206,29 @@
     .bg-image-left {
         width: 300px;
         opacity: 0.1;
+        height: calc(100vh - 120px);
     }
     
     .bg-image-right {
         width: 250px;
-        height: 50vh;
+        height: calc(50vh - 60px); /* Adjust for padding */
         opacity: 0.1;
     }
 }
 
 @media (max-width: 768px) {
+    .about-us-container {
+        padding-top: 100px; /* Reduce padding for smaller screens */
+        scroll-margin-top: 100px;
+    }
+    
+    .bg-image-left,
+    .bg-image-right,
+    .cosmic-bg {
+        top: 100px; /* Adjust for reduced padding */
+        height: calc(100vh - 100px); /* Adjust height */
+    }
+    
     .journey-title {
         font-size: var(--font-size-3xl);
     }
@@ -244,6 +259,18 @@
 }
 
 @media (max-width: 480px) {
+    .about-us-container {
+        padding-top: 80px; /* Further reduce padding for mobile */
+        scroll-margin-top: 80px;
+    }
+    
+    .bg-image-left,
+    .bg-image-right,
+    .cosmic-bg {
+        top: 80px; /* Adjust for mobile padding */
+        height: calc(100vh - 80px); /* Adjust height for mobile */
+    }
+    
     .journey-title {
         font-size: var(--font-size-2xl);
     }
@@ -267,10 +294,10 @@
 /* Cosmic Background */
 .cosmic-bg {
     position: absolute;
-    top: 0;
+    top: 120px; /* Adjust for the padding-top */
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 120px); /* Adjust height to account for padding */
     pointer-events: none;
     z-index: -1;
 }

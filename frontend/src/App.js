@@ -10,6 +10,7 @@ import AboutUs from './Pages/AboutUs';
 import Skills from './Pages/Skills';
 import WorkBanner from './Components/WorkBanner';
 import SpaceProjectsPage from './Pages/Projects';
+import Testimonials from './Pages/Testimonials';
 function App() {
   const videoRef = useRef(null);
 
@@ -25,7 +26,7 @@ function App() {
   return (
     <div className="App">
       {/* Background Video */}
-      <div className="video-background">
+       <div className="video-background">
         <video
           ref={videoRef}
           loop
@@ -38,7 +39,7 @@ function App() {
           <source src={backgroundVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      </div>
+      </div> 
      
       {/* Main Content */}
       <div className="main-content">
@@ -46,18 +47,18 @@ function App() {
         <div id="home">
           <HomePage />
         </div>
-        <div id="ticker">
-          <Ticker/>
-        </div>
         <div id='about'>
            <AboutUs/>
         </div>
         <div id='skills'>  
-<Skills/>
+          <Skills/>
         </div>
         <div id='work'>
           <SpaceProjectsPage/>
           <WorkBanner/>
+        </div>
+        <div id='testimonials'>
+          <Testimonials/>
         </div>
         <div id="contact">
           <ContactPage />
