@@ -1,130 +1,163 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import technologies from '../Assets/Videos/technologies.mp4';
 import '../Assets/Css/Skills.css';
-import blackhole from '../Assets/Videos/blackhole.mp4'
+import blackhole from '../Assets/Videos/blackhole.mp4';
+
 const Skills = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
+  const [screenSize, setScreenSize] = useState('large');
+
+  // Improved screen size monitoring
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 480) setScreenSize('extraSmall');
+      else if (width <= 640) setScreenSize('small');
+      else if (width <= 768) setScreenSize('medium');
+      else if (width <= 1024) setScreenSize('tablet');
+      else if (width <= 1280) setScreenSize('large');
+      else setScreenSize('extraLarge');
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const allSkills = [
     { 
       name: 'HTML', 
       color: '#E34F26', 
       size: 40, 
-      orbit: 100, 
-      speed: 80,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'
     },
     { 
       name: 'CSS', 
       color: '#1572B6', 
       size: 40, 
-      orbit: 140, 
-      speed: 75,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'
     },
     { 
-      name: 'Tailwind', 
-      color: '#38B2AC', 
+      name: 'Next.js', 
+      color: '#000000', 
       size: 45, 
-      orbit: 180, 
-      speed: 70,
-      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg'
-    },
+      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg'
+    }
+,    
     { 
       name: 'GitHub', 
       color: '#181717', 
       size: 45, 
-      orbit: 220, 
-      speed: 65,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg'
     },
     { 
       name: 'React', 
       color: '#61DAFB', 
       size: 50, 
-      orbit: 260, 
-      speed: 60,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
     },
     { 
       name: 'Node.js', 
       color: '#339933', 
       size: 50, 
-      orbit: 300, 
-      speed: 55,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
     },
     { 
       name: 'JavaScript', 
       color: '#F7DF1E', 
       size: 55, 
-      orbit: 340, 
-      speed: 50,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'
     },
     { 
       name: 'MongoDB', 
       color: '#47A248', 
       size: 55, 
-      orbit: 380, 
-      speed: 45,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
     },
     { 
       name: 'Flutter', 
       color: '#02569B', 
       size: 60, 
-      orbit: 420, 
-      speed: 40,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg'
     },
     { 
       name: 'Firebase', 
       color: '#FFCA28', 
       size: 60, 
-      orbit: 460, 
-      speed: 35,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg'
     },
     { 
       name: 'Python', 
       color: '#3776AB', 
       size: 65, 
-      orbit: 500, 
-      speed: 30,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'
     },
     { 
       name: 'Figma', 
       color: '#F24E1E', 
       size: 65, 
-      orbit: 540, 
-      speed: 25,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg'
     },
     { 
       name: 'Canva', 
       color: '#00C4CC', 
       size: 60, 
-      orbit: 580, 
-      speed: 20,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg'
     },
     { 
       name: 'Bootstrap', 
       color: '#7952B3', 
       size: 60, 
-      orbit: 620, 
-      speed: 15,
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg'
     },
   ];
 
-  // Use all skills for the solar system
-  const solarSystemSkills = allSkills;
+  // Calculate responsive orbit sizes and speeds
+  const getOrbitConfig = (index) => {
+    const baseSpeed = 15; // Much faster base speed
+    
+    switch (screenSize) {
+      case 'extraSmall':
+        return {
+          size: (index + 1) * 20 + 40,
+          speed: baseSpeed + (index * 2), // Faster speeds
+          planetSize: Math.max(25, allSkills[index].size * 0.6)
+        };
+      case 'small':
+        return {
+          size: (index + 1) * 25 + 50,
+          speed: baseSpeed + (index * 1.8),
+          planetSize: Math.max(30, allSkills[index].size * 0.7)
+        };
+      case 'medium':
+        return {
+          size: (index + 1) * 30 + 60,
+          speed: baseSpeed + (index * 1.6),
+          planetSize: Math.max(35, allSkills[index].size * 0.8)
+        };
+      case 'tablet':
+        return {
+          size: (index + 1) * 35 + 80,
+          speed: baseSpeed + (index * 1.4),
+          planetSize: allSkills[index].size * 0.9
+        };
+      case 'large':
+        return {
+          size: (index + 1) * 40 + 100,
+          speed: baseSpeed + (index * 1.2),
+          planetSize: allSkills[index].size
+        };
+      default:
+        return {
+          size: (index + 1) * 45 + 120,
+          speed: baseSpeed + (index * 1),
+          planetSize: allSkills[index].size
+        };
+    }
+  };
 
   // Generate stars for background
-  const stars = Array.from({ length: 50 }, (_, i) => ({
+  const stars = Array.from({ length: screenSize === 'extraSmall' ? 30 : 50 }, (_, i) => ({
     id: i,
     top: Math.random() * 100,
     left: Math.random() * 100,
@@ -134,20 +167,21 @@ const Skills = () => {
 
   return (
     <div className="skills-page">
-        <video
-    className="blackhole-video"
-    src={blackhole}
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-         
+      <video
+        className="blackhole-video"
+        src={blackhole}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      
       <div className="skills-header">
         <h1 className="skills-main-title">My Skill Universe</h1>
         <p className="skills-subtitle">Exploring the vast galaxy of technologies I've mastered in my development journey</p>
       </div>
-      <div className="skills-top-section">
+      
+      <div className="skills-top-section"  >
         <div className="solar-system-container">
           {/* Animated Stars Background */}
           {stars.map(star => (
@@ -167,38 +201,41 @@ const Skills = () => {
           <div className="solar-system">
             <div className="sun"></div>
             
-            {solarSystemSkills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="orbit"
-                style={{ 
-                  width: `${(index + 1) * 50 + 120}px`, 
-                  height: `${(index + 1) * 50 + 120}px`,
-                  animationDuration: `${30 + index * 5}s`
-                }}
-              >
+            {allSkills.map((skill, index) => {
+              const config = getOrbitConfig(index);
+              return (
                 <div
-                  className="planet"
-                  style={{
-                    width: `${skill.size}px`,
-                    height: `${skill.size}px`,
-                    background: `linear-gradient(135deg, ${skill.color}22, ${skill.color}66)`,
-                    border: `2px solid ${skill.color}`,
-                    boxShadow: `0 0 15px ${skill.color}44, inset 0 0 15px ${skill.color}22`,
-                    animationDelay: `${Math.random() * 2}s`
+                  key={skill.name}
+                  className="orbit"
+                  style={{ 
+                    width: `${config.size}px`, 
+                    height: `${config.size}px`,
+                    animationDuration: `${config.speed}s`
                   }}
-                  onMouseEnter={() => setSelectedSkill(skill)}
-                  onMouseLeave={() => setSelectedSkill(null)}
                 >
-                  <img 
-                    src={skill.logo} 
-                    alt={skill.name}
-                    className="planet-logo"
-                  />
-                  <span className="planet-name">{skill.name}</span>
+                  <div
+                    className="planet"
+                    style={{
+                      width: `${config.planetSize}px`,
+                      height: `${config.planetSize}px`,
+                      background: `linear-gradient(135deg, ${skill.color}22, ${skill.color}66)`,
+                      border: `2px solid ${skill.color}`,
+                      boxShadow: `0 0 15px ${skill.color}44, inset 0 0 15px ${skill.color}22`,
+                      animationDuration: `${config.speed}s`
+                    }}
+                    onMouseEnter={() => setSelectedSkill(skill)}
+                    onMouseLeave={() => setSelectedSkill(null)}
+                  >
+                    <img 
+                      src={skill.logo} 
+                      alt={skill.name}
+                      className="planet-logo"
+                    />
+                    <span className="planet-name">{skill.name}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
           {selectedSkill && (

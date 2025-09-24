@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import '../Assets/Css/ContactPage.css';
-import contactusimage from '../Assets/Images/contactusimage.jpg'
+import { sendContactEmail } from '../Services/Apis';
+
 function ContactForm() {
   const containerRef = useRef(null);
   const [isAwake, setIsAwake] = useState(false);
@@ -9,9 +10,20 @@ function ContactForm() {
   const [isBlinking, setIsBlinking] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Cursor tracking within the avatar area
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    title: '',
+    category: '',
+    description: ''
+  });
+
+  // Cursor tracking
   const cursorX = useMotionValue(0.5);
   const cursorY = useMotionValue(0.5);
 
@@ -20,8 +32,6 @@ function ContactForm() {
   const pupilY = useTransform(cursorY, [0, 1], [-10, 10]);
   const headTiltX = useTransform(cursorY, [0, 1], [8, -8]);
   const headTiltY = useTransform(cursorX, [0, 1], [-10, 10]);
-
-  // Floating animation
   const floatY = useTransform(cursorY, [0, 0.5, 1], [-6, 0, -6]);
 
   // Cursor tracking
@@ -29,41 +39,32 @@ function ContactForm() {
     const el = containerRef.current;
     if (!el) return;
 
-    function setFromEvent(clientX, clientY) {
+    const setFromEvent = (clientX, clientY) => {
       const rect = el.getBoundingClientRect();
       const x = (clientX - rect.left) / rect.width;
       const y = (clientY - rect.top) / rect.height;
       cursorX.set(Math.max(0, Math.min(1, x)));
       cursorY.set(Math.max(0, Math.min(1, y)));
       setMousePosition({ x: clientX, y: clientY });
-    }
+    };
 
-    function handleMoveLocal(e) {
+    const handleMoveLocal = (e) => {
       setFromEvent(e.clientX, e.clientY);
       if (isAwake) setIsHovering(true);
-    }
+    };
 
-    function handleLeave() {
+    const handleLeave = () => {
       setIsHovering(false);
       animate(cursorX, 0.5, { duration: 0.8, ease: [0.22, 1, 0.36, 1] });
       animate(cursorY, 0.5, { duration: 0.8, ease: [0.22, 1, 0.36, 1] });
-    }
-
-    function handleMoveWindow(e) {
-      if (!isAwake) return;
-      setFromEvent(e.clientX, e.clientY);
-    }
+    };
 
     el.addEventListener('mousemove', handleMoveLocal);
     el.addEventListener('mouseleave', handleLeave);
-    if (isAwake) {
-      window.addEventListener('mousemove', handleMoveWindow);
-    }
     
     return () => {
       el.removeEventListener('mousemove', handleMoveLocal);
       el.removeEventListener('mouseleave', handleLeave);
-      window.removeEventListener('mousemove', handleMoveWindow);
     };
   }, [cursorX, cursorY, isAwake]);
 
@@ -100,23 +101,55 @@ function ContactForm() {
     excited: { scaleY: 1.2, opacity: 1 }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     
     setIsSubmitting(true);
     setShowSuccess(false);
-    
-    setTimeout(() => {
+    setShowError(false);
+
+    try {
+      const emailData = {
+        name: formData.name,
+        email: formData.email,
+        subject: `Project Inquiry: ${formData.title} (${formData.category})`,
+        message: `Project Title: ${formData.title}
+Project Category: ${formData.category}
+
+Project Description:
+${formData.description}
+
+Contact Information:
+Name: ${formData.name}
+Email: ${formData.email}`.trim()
+      };
+
+      const result = await sendContactEmail(emailData);
+      
+      if (result.success) {
+        setShowSuccess(true);
+        setFormData({ name: '', email: '', title: '', category: '', description: '' });
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        throw new Error(result.message || 'Failed to send email');
+      }
+    } catch (error) {
+      setErrorMessage(error.message || 'Failed to send message. Please try again.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 5000);
+    } finally {
       setIsSubmitting(false);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
-    }, 2000);
+    }
   };
 
   return (
     <div className="contact-page">
-      {/* Animated background */}
       <div
         className="contact-bg"
         style={{
@@ -124,7 +157,6 @@ function ContactForm() {
         }}
       />
 
-      {/* Stars */}
       {[...Array(50)].map((_, i) => (
         <div
           key={i}
@@ -141,13 +173,7 @@ function ContactForm() {
       ))}
 
       <div className="contact-grid">
-        
-        {/* Avatar Section */}
-        <div 
-          ref={containerRef}
-          className="avatar-container"
-        >
-          {/* Status Badge */}
+        <div ref={containerRef} className="avatar-container">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -162,7 +188,6 @@ function ContactForm() {
             {isAwake ? '🚀 Ready for Contact!' : '😴 Sleeping...' }
           </motion.div>
 
-          {/* Main Avatar Container */}
           <motion.div
             initial="sleep"
             animate={isAwake ? 'awake' : 'sleep'}
@@ -170,22 +195,13 @@ function ContactForm() {
             whileHover={{ scale: 1.05, y: -10 }}
             className="avatar-main"
           >
-            {/* Helmet */}
-            <motion.div
-              className="avatar-helmet"
-            >
-              {/* Helmet Reflection */}
+            <motion.div className="avatar-helmet">
               <div className="helmet-reflection" />
-              
-              {/* Orbital Ring */}
               <div className="orbital-ring" />
             </motion.div>
 
-            {/* Face Container */}
             <div className="face-container">
-              {/* Eyes */}
               <div className="eyes-container">
-                {/* Left Eye */}
                 <div className="eye">
                   <motion.div
                     className="pupil"
@@ -200,20 +216,14 @@ function ContactForm() {
                       y: pupilY
                     }}
                   />
-                  {/* Eyelid */}
                   <motion.div
-                    animate={
-                      !isAwake ? 'closed' : 
-                      isBlinking ? 'closed' : 
-                      isHovering ? 'excited' : 'open'
-                    }
+                    animate={!isAwake ? 'closed' : isBlinking ? 'closed' : isHovering ? 'excited' : 'open'}
                     variants={eyeVariants}
                     transition={{ duration: 0.2 }}
                     className="eyelid"
                   />
                 </div>
 
-                {/* Right Eye */}
                 <div className="eye">
                   <motion.div
                     className="pupil"
@@ -228,13 +238,8 @@ function ContactForm() {
                       y: pupilY
                     }}
                   />
-                  {/* Eyelid */}
                   <motion.div
-                    animate={
-                      !isAwake ? 'closed' : 
-                      isBlinking ? 'closed' : 
-                      isHovering ? 'excited' : 'open'
-                    }
+                    animate={!isAwake ? 'closed' : isBlinking ? 'closed' : isHovering ? 'excited' : 'open'}
                     variants={eyeVariants}
                     transition={{ duration: 0.2 }}
                     className="eyelid"
@@ -242,7 +247,6 @@ function ContactForm() {
                 </div>
               </div>
 
-              {/* Mouth */}
               <motion.div
                 className="mouth"
                 animate={{
@@ -258,7 +262,6 @@ function ContactForm() {
               />
             </div>
 
-            {/* Sleep indicator */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{
@@ -278,7 +281,6 @@ function ContactForm() {
           </motion.div>
         </div>
 
-        {/* Contact Form */}
         <div className="contact-form-wrap">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -286,42 +288,62 @@ function ContactForm() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="form-card"
           >
-            <h2 className="form-title">
-              Contact Form
-            </h2>
-            
-            <p className="form-subtitle">
-              Feel Free to Contact if You Have Any Query....
-            </p>
+            <h2 className="form-title">Contact Form</h2>
+            <p className="form-subtitle">Feel Free to Contact if You Have Any Query....</p>
 
             <form 
               onSubmit={handleFormSubmit}
               onFocus={() => setIsAwake(true)}
-              onBlur={(e) => {
-                if (!e.currentTarget.contains(document.activeElement)) {
-                  setTimeout(() => setIsAwake(false), 1000);
-                }
-              }}
               className="form"
             >
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="name" className="form-label">Your Name</label>
-                <input id="name" type="text" placeholder="e.g., Syed Atif Shah" required className="form-input" />
+                <input 
+                  id="name" 
+                  type="text" 
+                  placeholder="e.g., Syed Atif Shah" 
+                  required 
+                  className="form-input" 
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="email" className="form-label">Email</label>
-                <input id="email" type="email" placeholder="captain@gmail.com" required className="form-input" />
+                <input 
+                  id="email" 
+                  type="email" 
+                  placeholder="captain@gmail.com" 
+                  required 
+                  className="form-input" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="title" className="form-label">Project title</label>
-                <input id="title" type="text" placeholder="E-Commerce Website" required className="form-input" />
+                <input 
+                  id="title" 
+                  type="text" 
+                  placeholder="E-Commerce Website" 
+                  required 
+                  className="form-input" 
+                  value={formData.title}
+                  onChange={handleInputChange}
+                />
               </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="category" className="form-label">Project category</label>
-                <select id="category" required className="form-select">
+                <select 
+                  id="category" 
+                  required 
+                  className="form-select"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
                   <option value="">Select category</option>
                   <option value="website">Website</option>
                   <option value="web-app">Web App</option>
@@ -330,11 +352,19 @@ function ContactForm() {
                   <option value="automation">Automation/Scripts</option>
                   <option value="other">Other</option>
                 </select>
-                </motion.div>
+              </motion.div>
 
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
                 <label htmlFor="description" className="form-label">Project description</label>
-                <textarea id="description" rows={4} placeholder="Describe your project requirements..." required className="form-textarea" />
+                <textarea 
+                  id="description" 
+                  rows={4} 
+                  placeholder="Describe your project requirements..." 
+                  required 
+                  className="form-textarea" 
+                  value={formData.description}
+                  onChange={handleInputChange}
+                />
               </motion.div>
 
               <motion.button
@@ -350,9 +380,7 @@ function ContactForm() {
                     Launching Mission...
                   </>
                 ) : (
-                  <>
-                    🚀 Send Mail
-                  </>
+                  <>🚀 Send Mail</>
                 )}
               </motion.button>
             </form>
@@ -360,43 +388,24 @@ function ContactForm() {
         </div>
       </div>
 
-      {/* Rocket Launch Animation */}
-      {isSubmitting && (
+      {showError && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="rocket-container"
-          style={{ animation: 'rocketLaunch 2s ease-out forwards' }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="error-overlay"
         >
-          <div style={{ position: 'relative', width: '30px', height: '60px' }}>
-            {/* Rocket Body */}
-            <div className="rocket-body">
-              {/* Nose Cone */}
-              <div className="nose-cone" />
-              
-              {/* Window */}
-              <div className="rocket-window" />
-              
-              {/* Fins */}
-              <div className="fin fin-left" />
-              <div className="fin fin-right" />
-            </div>
-            
-            {/* Flame */}
-            <div className="flame" />
-            
-            {/* Exhaust Trail */}
-            <div className="exhaust-trail" />
-          </div>
+          <motion.div className="error-content">
+            <div className="error-emoji">❌</div>
+            <h3 className="error-title">Failed to Send</h3>
+            <p className="error-message">{errorMessage}</p>
+          </motion.div>
         </motion.div>
       )}
 
-      {/* Success Message */}
       {showSuccess && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           className="success-overlay"
         >
           <motion.div
@@ -405,12 +414,8 @@ function ContactForm() {
             className="success-content"
           >
             <div className="success-emoji">🎉</div>
-            <h3 className="success-title">
-              Mail Send Successfully!
-            </h3>
-            <p className="success-message">
-              Your message has been launched....
-            </p>
+            <h3 className="success-title">Mail Sent Successfully!</h3>
+            <p className="success-message">Your message has been launched. I'll get back to you soon!</p>
           </motion.div>
         </motion.div>
       )}

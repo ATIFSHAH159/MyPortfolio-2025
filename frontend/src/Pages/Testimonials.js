@@ -42,6 +42,17 @@ const Testimonials = () => {
       text: "The website redesign transformed our online presence completely. The space-themed design is not only visually stunning but also highly functional.",
       project: "Website Redesign",
       date: "2023"
+    },
+    {
+      id: 4,
+      name: "David Wilson",
+      role: "Startup Founder",
+      company: "NextGen Solutions",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      rating: 5,
+      text: "Outstanding performance and delivery! The custom software solution they built has streamlined our entire business process.",
+      project: "Custom Software",
+      date: "2024"
     }
   ];
 
@@ -156,13 +167,15 @@ const Testimonials = () => {
           <div 
             className="testimonials-track"
             style={{
-              transform: `translateX(-${currentTestimonial * 100}%)`
+              transform: `translateX(-${currentTestimonial * (100 / testimonials.length)}%)`,
+              width: `${testimonials.length * 100}%`
             }}
           >
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
                 className={`testimonial-slide ${currentTestimonial === index ? 'active' : ''}`}
+                style={{ width: `${100 / testimonials.length}%` }}
               >
                 <div className="testimonial-card main-testimonial">
                   <div className="card-glow"></div>
