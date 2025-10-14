@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Bot } from 'lucide-react';
 import Menubar from './Components/Menubar';
 import backgroundVideo from './Assets/Videos/galaxy.mp4';
 import './App.css';
@@ -11,8 +12,11 @@ import Skills from './Pages/Skills';
 import WorkBanner from './Components/WorkBanner';
 import SpaceProjectsPage from './Pages/Projects';
 import Testimonials from './Pages/Testimonials';
+import Chatbot from './Components/Chatbot';
+
 function App() {
   const videoRef = useRef(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -55,10 +59,11 @@ function App() {
         </div>
         <div id='work'>
           <SpaceProjectsPage/>
-          <WorkBanner/>
+         
         </div>
         <div id='testimonials'>
           <Testimonials/>
+          <WorkBanner/>
         </div>
         <div id="contact">
           <ContactPage />
@@ -66,6 +71,22 @@ function App() {
        
         <Footer/>
       </div>
+
+      {/* Floating AI Assistant Button and Label */}
+      {!isChatOpen && (
+        <div className="ai-assistant-label">AI Assistant ↓</div>
+      )}
+      <button
+        onClick={() => setIsChatOpen((v) => !v)}
+        className="ai-assistant-btn"
+        aria-label="Toggle AI Assistant"
+        title={isChatOpen ? 'Close Assistant' : 'AI Assistant'}
+      >
+        {isChatOpen ? '×' : <Bot size={42} strokeWidth={2.5} />}
+      </button>
+
+      {/* Chatbot Panel */}
+      <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }

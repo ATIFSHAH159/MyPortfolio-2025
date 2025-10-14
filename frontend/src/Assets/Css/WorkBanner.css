@@ -33,7 +33,7 @@
   
   .stat-box h3 {
     font-size: 32px;
-    color: white;
+    color: #1de9ff;
     margin: 0;
     font-weight: 700;
     display: flex;
@@ -48,7 +48,7 @@
   
   .stat-box p {
     font-size: 14px;
-    color: #ccc;
+    color:#1de9ff;
     font-weight: 600;
     margin: 5px 0 0;
     letter-spacing: 0.5px;

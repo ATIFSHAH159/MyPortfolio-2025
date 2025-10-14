@@ -9,10 +9,11 @@ import cvFile from '../Assets/Documents/Atif Cv.pdf';
 
 function HomePage() {
     const [typedRole, setTypedRole] = useState('');
-    const roles = ['Full Stack Developer', 'React Developer', 'Flutter Developer', 'UI/UX Designer'];
+    const roles = ['Full Stack Developer', 'AI/ML Enthusiast', 'Flutter Developer', 'UI/UX Designer'];
     const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isAstronautDancing, setIsAstronautDancing] = useState(false);
 
     // Typewriter effect
     useEffect(() => {
@@ -36,6 +37,15 @@ function HomePage() {
 
         return () => clearTimeout(timeout);
     }, [currentCharIndex, currentRoleIndex, isDeleting, roles]);
+
+    // Handle astronaut double-click
+    const handleAstronautDoubleClick = () => {
+        setIsAstronautDancing(true);
+        // Stop dancing after 8 seconds
+        setTimeout(() => {
+            setIsAstronautDancing(false);
+        }, 8000);
+    };
 
     // Social media links
     const socialLinks = [
@@ -134,25 +144,58 @@ function HomePage() {
         }
     };
 
+    // Dancing astronaut animation variants
+    const astronautVariants = {
+        normal: {
+            y: [0, -10, 0, -8, 0],
+            rotate: [0, 1, 0, -1, 0],
+            scale: [1, 1.02, 1, 1.01, 1],
+            transition: {
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+            }
+        },
+        dancing: {
+            y: [0, -30, -15, -35, -10, -40, -5, -25, 0],
+            rotate: [0, 15, -12, 20, -15, 25, -20, 10, 0],
+            scale: [1, 1.1, 0.95, 1.15, 0.9, 1.2, 1.05, 1.1, 1],
+            x: [0, 20, -15, 25, -20, 30, -10, 15, 0],
+            transition: {
+                duration: 1.2,
+                repeat: 6, // Dance for about 8 seconds total
+                ease: "easeInOut",
+                times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
+            }
+        }
+    };
+
     return (
         <>
-        
-
             <motion.div
                 className="landing-container landing-rounded"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
-                      <img
-    className="backgroundimage"
-    src={backgroundimg}
-
-  />
+                <motion.img
+                    className="backgroundimage"
+                    src={backgroundimg}
+                    alt="Dancing Astronaut"
+                    onDoubleClick={handleAstronautDoubleClick}
+                    variants={astronautVariants}
+                    animate={isAstronautDancing ? "dancing" : "normal"}
+                    style={{
+                        cursor: 'pointer',
+                        userSelect: 'none'
+                    }}
+                    whileHover={{ 
+                        scale: 1.05,
+                        transition: { duration: 0.2 }
+                    }}
+                />
 
                 <div className="half-width-boxleft">
-                                 
-
                     <motion.div className="intro-block" variants={containerVariants}>
                         <motion.p className="hello-text" variants={itemVariants}>
                             Hello, It's Me
@@ -166,8 +209,9 @@ function HomePage() {
                             </span>
                         </motion.h2>
                         <motion.p className="description-text" variants={itemVariants}>
-                            I am a passionate web developer with expertise in creating dynamic and responsive websites. I also build beautiful mobile applications with Flutter. I strive to create impactful and user-friendly solutions.
+                            I am an AI and Machine Learning enthusiast with a strong interest in building intelligent systems. I enjoy exploring data, developing predictive models, and creating solutions that leverage the power of AI to solve real-world problems. My passion lies in continuously learning, experimenting with new algorithms, and applying cutting-edge technologies to make meaningful impacts.
                         </motion.p>
+
                         <motion.div className="social-row" style={{ display: 'flex', gap: '18px', marginBottom: '32px' }}>
                             {socialLinks.map((link, i) => (
                                 <motion.a
@@ -214,7 +258,6 @@ function HomePage() {
                     </motion.div>
                 </div>
                 <div className="half-width-boxright">
-                    
                     <motion.div
                         className="profile-image-wrapper profile-glow"
                         variants={imageVariants}
@@ -251,7 +294,6 @@ function HomePage() {
             </motion.div>
             <Ticker/>
             <br></br>
-            
         </>
     );
 }

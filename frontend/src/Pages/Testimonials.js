@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import '../Assets/Css/Testimonials.css';
-
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -12,43 +11,43 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "CEO at TechCorp",
-      company: "TechCorp Solutions",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
+      name: "Soman Ahmad",
+      role: "HR at Elite Fusion",
+      company: "Elite Fusion",
+      image: "https://media.licdn.com/dms/image/v2/D4D35AQEYApEsTaA-Gw/profile-framedphoto-shrink_200_200/B4DZf_2CCgGsAY-/0/1752344044087?e=1759492800&v=beta&t=pZwCv9kVHe39WQGL3mJ5fCvjiuWjnoQRyKjwioFjeQQ",
+      rating: 4,
       text: "Working with this developer was an absolute game-changer for our company. Their attention to detail and innovative approach to problem-solving exceeded all our expectations.",
-      project: "E-commerce Platform",
-      date: "2024"
+      project: "Mobile Application",
+      date: "2025"
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Product Manager",
-      company: "InnovateLab",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "Exceptional work ethic and technical expertise! The mobile app they developed for us has significantly improved our user engagement.",
-      project: "Mobile Application",
+      name: "Shah Hussain",
+      role: "AI/ML Engineer",
+      company: "Elite Fusion & Freelancer",
+      image: "https://avatars.githubusercontent.com/u/129790640?v=4",
+      rating: 4,
+      text: "Exceptional work ethic and technical expertise! The web app they developed for us has significantly improved our user engagement.",
+      project: "Website",
       date: "2024"
     },
     {
       id: 3,
-      name: "Emily Rodriguez",
+      name: "Abdul Aziz",
       role: "Marketing Director",
-      company: "Creative Agency",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      company: "IT Solutions",
+      image: "https://avatars.githubusercontent.com/u/129079186?v=4",
       rating: 5,
       text: "The website redesign transformed our online presence completely. The space-themed design is not only visually stunning but also highly functional.",
       project: "Website Redesign",
-      date: "2023"
+      date: "2024"
     },
     {
       id: 4,
-      name: "David Wilson",
+      name: "Mahad Wajid",
       role: "Startup Founder",
       company: "NextGen Solutions",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      image: "https://avatars.githubusercontent.com/u/121817699?v=4",
       rating: 5,
       text: "Outstanding performance and delivery! The custom software solution they built has streamlined our entire business process.",
       project: "Custom Software",
@@ -223,44 +222,6 @@ const Testimonials = () => {
               className={`indicator ${currentTestimonial === index ? 'active' : ''}`}
               onClick={() => goToTestimonial(index)}
             />
-          ))}
-        </div>
-      </div>
-
-      {/* Floating Testimonial Cards */}
-      <div className={`floating-testimonials ${isVisible ? 'float-in' : ''}`}>
-        <h2 className="floating-title">More Client Experiences</h2>
-        
-        <div className="floating-grid">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`floating-card ${hoveredCard === index ? 'hovered' : ''}`}
-              style={{
-                animationDelay: `${index * 0.2}s`
-              }}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className="floating-card-inner">
-                <div className="floating-card-front">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="floating-avatar"
-                  />
-                  <h4 className="floating-name">{testimonial.name}</h4>
-                  <p className="floating-role">{testimonial.role}</p>
-                  <div className="floating-rating">
-                    {renderStars(testimonial.rating)}
-                  </div>
-                </div>
-                <div className="floating-card-back">
-                  <p className="floating-text">"{testimonial.text.substring(0, 120)}..."</p>
-                  <div className="floating-project">{testimonial.project}</div>
-                </div>
-              </div>
-            </div>
           ))}
         </div>
       </div>

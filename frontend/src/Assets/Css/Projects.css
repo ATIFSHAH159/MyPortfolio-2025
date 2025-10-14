@@ -194,6 +194,7 @@
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
   padding: var(--spacing-lg);
   color: var(--text-color);
+  pointer-events: none; /* allow clicks to pass through */
 }
 
 .project-title-screen {
@@ -355,6 +356,7 @@
   backdrop-filter: blur(2px);
   border: 1px solid var(--border-color);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 .projects-track {
@@ -461,6 +463,8 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 5; /* ensure above decorative layers */
 }
 
 .project-link {

@@ -34,3 +34,25 @@ export const checkServerHealth = async () => {
     throw error;
   }
 };
+
+// Send a chat message to the AI assistant
+export const sendChatMessage = async (message) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.message || 'Chat request failed');
+    }
+    return result.response;
+  } catch (error) {
+    console.error('Error sending chat message:', error);
+    throw error;
+  }
+};

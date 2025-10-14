@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import digitalbrain from '../Assets/Images/digital brain (2).png'
 import about from '../Assets/Images/About.png'
@@ -7,6 +8,32 @@ import robot from '../Assets/Images/astronaut2.jpg'
 import robot2 from '../Assets/Images/minirobot.png'
 
 function AboutUs() {
+    const [isAchievementsOpen, setIsAchievementsOpen] = useState(false)
+    const [activeAchievement, setActiveAchievement] = useState(0)
+
+    const achievements = [
+        { title: 'Climate Maker Challenge Finalist', subtitle: 'The OATHE Project 2025', description: 'Built Climate Nexus to promote awareness using AI-assisted insights.' },
+        { title: 'Elderlyze – Wellness App', subtitle: 'Featured Project 2025', description: 'Bilingual AI chatbot, mood tracking, medicine reminders and SOS notifications.' },
+        { title: 'RTBTS – Real-time Bus Tracking', subtitle: 'Mobile App 2024', description: 'Implemented Google Maps tracking and Firebase realtime updates.' },
+        { title: 'Hackathon Top Performer', subtitle: 'University HackFest 2023', description: 'Led a team to prototype a full-stack solution in 36 hours.' }
+    ]
+
+    const openAchievements = () => setIsAchievementsOpen(true)
+    const closeAchievements = () => setIsAchievementsOpen(false)
+    const nextAchievement = () => setActiveAchievement(p => (p + 1) % achievements.length)
+    const prevAchievement = () => setActiveAchievement(p => (p - 1 + achievements.length) % achievements.length)
+
+    useEffect(() => {
+        if (!isAchievementsOpen) return
+        const onKey = (e) => {
+            if (e.key === 'Escape') closeAchievements()
+            if (e.key === 'ArrowRight') nextAchievement()
+            if (e.key === 'ArrowLeft') prevAchievement()
+        }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [isAchievementsOpen])
+    
     // Animation variants
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -170,10 +197,15 @@ function AboutUs() {
                     animate="visible"
                     variants={itemVariants}
                 >
-                    <motion.h1 variants={textGlowVariants} animate="animate">
-                        About Me
-                        <span className="cosmic-accent">✦</span>
-                    </motion.h1>
+                    <h1 className="main-title">ABOUT ME</h1>
+                    <p className="main-subtitle">
+                        Discover my journey as a developer and designer
+                    </p>
+                    <div className="title-decoration">
+                        <div className="decoration-line"></div>
+                        <div className="decoration-dot"></div>
+                        <div className="decoration-line"></div>
+                    </div>
                 </motion.div>
 
                 {/* Main Content Layout */}
@@ -270,12 +302,18 @@ function AboutUs() {
                     </motion.blockquote>
 
                     <motion.p className="about-hero-desc" variants={itemVariants}>
-                        I am a passionate web and mobile developer with expertise in creating dynamic, responsive websites and beautiful Flutter apps. My journey started with a love for technology, grew through formal education, and blossomed into a career where I solve real-world problems with code. I thrive on creativity, collaboration, and continuous learning through the infinite possibilities of the digital universe.
-                    </motion.p>
-                </motion.div>
-            </div>
+  I am a passionate web and mobile developer with expertise in creating dynamic, responsive websites and beautiful Flutter apps. 
+  My journey started with a love for technology, grew through formal education, and blossomed into a career where I solve real-world problems with code. 
+  Alongside development, I am also an AI and Machine Learning enthusiast, exploring data, building predictive models, and applying intelligent systems to create impactful solutions. 
+  I thrive on creativity, collaboration, and continuous learning through the infinite possibilities of the digital universe.
+</motion.p>
 
-            {/* My Journey Section */}
+            </motion.div>
+        </div>
+        
+        
+
+        {/* My Journey Section */}
             <motion.div 
                 className="journey-section"
                 initial="hidden"
@@ -361,6 +399,84 @@ function AboutUs() {
                     </motion.div>
                 </div>
             </motion.div>
+
+        {/* Achievements Trigger (placed after My Journey content) */}
+        <div className="achievements-trigger">
+            <button className="achievements-btn" onClick={openAchievements}>Achievements</button>
+        </div>
+
+        {/* Achievements Modal */}
+        {isAchievementsOpen && (
+            <div className="modal-overlay" role="dialog" aria-modal="true" aria-label="Achievements" onClick={closeAchievements}>
+                <div className="achievements-modal" onClick={(e) => e.stopPropagation()}>
+                    <button className="modal-close" onClick={closeAchievements} aria-label="Close">×</button>
+                    
+                    <div className="achievements-header">
+                        <h3>My Achievements</h3>
+                    </div>
+                    
+                    <div className="achievements-viewport">
+                        <div className="achievements-stage">
+                            {achievements.map((item, index) => {
+                                const offset = index - activeAchievement
+                                const total = achievements.length
+                                const wrapLeft = offset <= -Math.floor(total / 2)
+                                const wrapRight = offset >= Math.ceil(total / 2)
+                                const normalized = wrapLeft ? offset + total : wrapRight ? offset - total : offset
+
+                                const translateX = normalized * 240
+                                const rotateY = normalized === 0 ? 0 : normalized < 0 ? 22 : -22
+                                const translateZ = normalized === 0 ? 120 : -60
+                                const scale = normalized === 0 ? 1 : 0.86
+                                const zIndex = 10 - Math.abs(normalized)
+                                // Reduced opacity for adjacent cards
+                                const opacity = normalized === 0 ? 1 : Math.abs(normalized) === 1 ? 0.25 : 0.1
+
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className={`achievement-card ${normalized === 0 ? 'active' : 'side'}`} 
+                                        style={{ 
+                                            transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`, 
+                                            zIndex, 
+                                            opacity 
+                                        }}
+                                    >
+                                        <h4 className="achievement-title">{item.title}</h4>
+                                        <p className="achievement-subtitle">{item.subtitle}</p>
+                                        <p className="achievement-desc">{item.description}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Navigation buttons moved to bottom center */}
+                    <div className="achievements-controls">
+                        <button 
+                            className="nav prev" 
+                            onClick={(e) => { 
+                                e.stopPropagation(); 
+                                prevAchievement() 
+                            }} 
+                            aria-label="Previous"
+                        >
+                            ‹
+                        </button>
+                        <button 
+                            className="nav next" 
+                            onClick={(e) => { 
+                                e.stopPropagation(); 
+                                nextAchievement() 
+                            }} 
+                            aria-label="Next"
+                        >
+                            ›
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
         </div>
         </>
     )

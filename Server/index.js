@@ -8,6 +8,7 @@ dotenv.config();
 
 // Import routes
 import emailRoutes from './Routes/emailRoutes.js';
+import chatRoutes from './Routes/chatRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/email', emailRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -47,7 +49,8 @@ app.use((req, res) => {
     message: 'Route not found',
     availableEndpoints: [
       'GET /api/health',
-      'POST /api/email/contact'
+      'POST /api/email/contact',
+      'POST /api/chat'
     ]
   });
 });

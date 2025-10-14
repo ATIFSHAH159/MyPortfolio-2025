@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import technologies from '../Assets/Videos/technologies.mp4';
+import technologies from '../Assets/Videos/technologies.gif';
 import '../Assets/Css/Skills.css';
 import blackhole from '../Assets/Videos/blackhole.mp4';
 
@@ -42,8 +42,7 @@ const Skills = () => {
       color: '#000000', 
       size: 45, 
       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg'
-    }
-,    
+    },    
     { 
       name: 'GitHub', 
       color: '#181717', 
@@ -174,14 +173,92 @@ const Skills = () => {
         loop
         muted
         playsInline
+        preload="auto"
       />
       
-      <div className="skills-header">
-        <h1 className="skills-main-title">My Skill Universe</h1>
-        <p className="skills-subtitle">Exploring the vast galaxy of technologies I've mastered in my development journey</p>
+      {/* Moving Space Elements */}
+      {/* Moving Rockets */}
+      <div className="skills-rockets-container">
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={`skills-rocket-${i}`}
+            className="skills-rocket"
+            style={{
+              animationDelay: `${i * 10}s`,
+              animationDuration: `${18 + i * 4}s`,
+              top: `${15 + i * 30}%`
+            }}
+          >
+            <div className="skills-rocket-body">
+              <div className="skills-rocket-nose"></div>
+              <div className="skills-rocket-middle"></div>
+              <div className="skills-rocket-tail"></div>
+              <div className="skills-rocket-flame"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Moving Satellites */}
+      <div className="skills-satellites-container">
+        {[...Array(2)].map((_, i) => (
+          <div
+            key={`skills-satellite-${i}`}
+            className="skills-satellite"
+            style={{
+              animationDelay: `${i * 15}s`,
+              animationDuration: `${25 + i * 6}s`,
+              top: `${10 + i * 45}%`
+            }}
+          >
+            <div className="skills-satellite-body">
+              <div className="skills-satellite-dish"></div>
+              <div className="skills-satellite-panels">
+                <div className="skills-panel left"></div>
+                <div className="skills-panel right"></div>
+              </div>
+              <div className="skills-satellite-antenna"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Moving UFOs */}
+      <div className="skills-ufos-container">
+        {[...Array(2)].map((_, i) => (
+          <div
+            key={`skills-ufo-${i}`}
+            className="skills-ufo"
+            style={{
+              animationDelay: `${i * 20}s`,
+              animationDuration: `${30 + i * 8}s`,
+              top: `${25 + i * 35}%`
+            }}
+          >
+            <div className="skills-ufo-body">
+              <div className="skills-ufo-top"></div>
+              <div className="skills-ufo-bottom"></div>
+              <div className="skills-ufo-lights">
+                <div className="skills-ufo-light"></div>
+                <div className="skills-ufo-light"></div>
+                <div className="skills-ufo-light"></div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       
-      <div className="skills-top-section"  >
+      <div className="skills-header">
+        <h1 className="main-title">MY SKILL UNIVERSE</h1>
+        <p className="main-subtitle">Exploring the vast galaxy of technologies I've mastered in my development journey</p>
+        <div className="title-decoration">
+          <div className="decoration-line"></div>
+          <div className="decoration-dot"></div>
+          <div className="decoration-line"></div>
+        </div>
+      </div>
+      
+      <div className="skills-top-section">
         <div className="solar-system-container">
           {/* Animated Stars Background */}
           {stars.map(star => (
@@ -248,13 +325,9 @@ const Skills = () => {
         </div>
         
         <div className="tech-video-container">
-          <video 
+          <img 
             src={technologies} 
             alt="technologies"
-            autoPlay
-            loop
-            muted
-            playsInline
             className="tech-video"
           />
         </div>
@@ -284,7 +357,7 @@ const Skills = () => {
               <div 
                 key={`second-${skill.name}`}
                 className="skill-ticker-item"
-                style={{ borderColor: skill.color, boxShadow: `0 0 10px ${skill.color}44` }}
+                style={{ borderColor: skill.color, boxShadow: `0 0 10px ${skill.color}44`}}
               >
                 <img 
                   src={skill.logo} 

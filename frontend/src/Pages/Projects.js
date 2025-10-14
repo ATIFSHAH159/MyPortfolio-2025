@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Github, ExternalLink, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import robot3 from '../Assets/Images/astronaut3.png';
 import robot4 from '../Assets/Images/astronaut4.png';
+import watchgallery from '../Assets/Images/watchgallery.png';
+import elderlyze from '../Assets/Images/elderlyze.png';
+import climateNexus from '../Assets/Images/climatenexus.png';
+import rtbt from '../Assets/Images/rtbts.jpg';
+import pakrehab from '../Assets/Images/pakrehabilitation.png';
 import '../Assets/Css/Projects.css';
 
 const SpaceProjectsPage = () => {
@@ -17,57 +22,66 @@ const SpaceProjectsPage = () => {
       title: "E-Commerce Platform",
       description: "A full-stack e-commerce platform built with React and Node.js featuring user authentication, payment integration, and admin dashboard.",
       technologies: ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
-      githubUrl: "https://github.com/yourusername/ecommerce",
-      liveUrl: "https://your-ecommerce-demo.com",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+      githubUrl: "https://github.com/ATIFSHAH159/watchgallery",
+      liveUrl: "https://watchgallery-lime.vercel.app/",
+      image: watchgallery,
       video: null,
       date: "2024",
       status: "Completed"
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      technologies: ["React", "Firebase", "Tailwind CSS", "Socket.io"],
-      githubUrl: "https://github.com/yourusername/taskmanager",
-      liveUrl: "https://your-taskmanager-demo.com",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+      title: "Elderlyze",
+      description:"Elderlyze is a wellness web app for 40+ users featuring a bilingual (English & Urdu) AI chatbot, mood tracking via emojis, medicine reminders, and SOS alerts with family notifications.",
+      technologies: [
+        "React",
+        "Firebase",
+        "CSS",
+        "OpenAI API",
+        "Twilio / Vonage (SMS API)",
+        "YouTube API",
+        "Multi-language Support (English & Urdu)"
+      ],
+      githubUrl: "https://github.com/ShahxHussain/Elderlyze",
+      liveUrl: "https://elderlyze.vercel.app/",
+      image: elderlyze,
       video: null,
-      date: "2024",
+      date: "2025",
       status: "Completed"
     },
+    
     {
       id: 3,
-      title: "Weather Dashboard",
-      description: "A modern weather application with location-based forecasts, interactive maps, and detailed weather analytics with beautiful UI.",
-      technologies: ["React", "OpenWeather API", "Chart.js", "CSS3"],
-      githubUrl: "https://github.com/yourusername/weather-app",
-      liveUrl: "https://your-weather-demo.com",
-      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop",
+      title: "Climate Nexus",
+      description: "Climate Nexus is a project developed for the Climate Change Maker Challenge 2025, organized by The OATHE Project and the Youth Image Challenge. ",
+      technologies: ["React", "TogetherAPI", "Node.js", "CSS3"],
+      githubUrl: "https://github.com/ShahxHussain/Climate-Nexus",
+      liveUrl: "https://climate-change-makers.vercel.app/",
+      image: climateNexus,
       video: null,
       date: "2023",
       status: "Completed"
     },
     {
       id: 4,
-      title: "Portfolio Website",
-      description: "A responsive portfolio website with space theme, smooth animations, and interactive elements showcasing my work and skills.",
-      technologies: ["React", "CSS3", "Framer Motion", "Three.js"],
-      githubUrl: "https://github.com/yourusername/portfolio",
-      liveUrl: "https://your-portfolio.com",
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
+      title: "RTBTS Mobile App",
+      description: "A Cross Platform Mobile App for Real Time Bus Tracking System",
+      technologies: ["Flutter", "Google Maps API", "Firebase","Dart"],
+      githubUrl: "https://github.com/ATIFSHAH159/Real-Time-Bus-Tracking-System",
+      liveUrl: null,
+      image: rtbt,
       video: null,
       date: "2024",
-      status: "In Progress"
+      status: "Completed"
     },
     {
       id: 5,
-      title: "Social Media App",
+      title: "Doctor's Appointment Booking System",
       description: "A social media platform with real-time chat, post sharing, stories feature, and advanced privacy controls.",
-      technologies: ["React Native", "Node.js", "PostgreSQL", "Socket.io"],
-      githubUrl: "https://github.com/yourusername/social-app",
-      liveUrl: "https://your-social-demo.com",
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop",
+      technologies: ["React", "Node.js", "Express", "MongoDB"],
+      githubUrl: "https://github.com/ATIFSHAH159/pakrehabilitationcenterclinic",
+      liveUrl: "https://pakrehabilitationcenterclinic.vercel.app/",
+      image: pakrehab,
       video: null,
       date: "2024",
       status: "In Progress"

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import '../Assets/Css/ContactPage.css';
 import { sendContactEmail } from '../Services/Apis';
+import contactimage from '../Assets/Images/contactimage.png'
 
 function ContactForm() {
   const containerRef = useRef(null);
@@ -78,6 +79,20 @@ function ContactForm() {
     return () => clearInterval(id);
   }, [isAwake]);
 
+  // Handle clicking outside input fields to make avatar sleep
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      // Check if click is outside any form input, textarea, or select
+      const isFormElement = e.target.closest('input, textarea, select');
+      if (!isFormElement && isAwake) {
+        setIsAwake(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isAwake]);
+
   const headVariants = useMemo(() => ({
     sleep: { 
       rotateX: 12, 
@@ -150,6 +165,23 @@ Email: ${formData.email}`.trim()
 
   return (
     <div className="contact-page">
+      <div
+        className="contact-image-bg"
+        style={{ backgroundImage: `url(${contactimage})` }}
+      />
+
+      {/* Section Header */}
+      <div className="contact-header">
+        <h1 className="main-title">CONTACT ME</h1>
+        <p className="main-subtitle">
+          Let's discuss your next project and bring your ideas to life
+        </p>
+        <div className="title-decoration">
+          <div className="decoration-line"></div>
+          <div className="decoration-dot"></div>
+          <div className="decoration-line"></div>
+        </div>
+      </div>
       <div
         className="contact-bg"
         style={{
@@ -296,70 +328,77 @@ Email: ${formData.email}`.trim()
               onFocus={() => setIsAwake(true)}
               className="form"
             >
-              <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
-                <label htmlFor="name" className="form-label">Your Name</label>
-                <input 
-                  id="name" 
-                  type="text" 
-                  placeholder="e.g., Syed Atif Shah" 
-                  required 
-                  className="form-input" 
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-              </motion.div>
+              {/* Row 1: Name and Email */}
+              <div className="form-row">
+                <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
+                  <label htmlFor="name" className="form-label">Your Name</label>
+                  <input 
+                    id="name" 
+                    type="text" 
+                    placeholder="e.g., Syed Atif Shah" 
+                    required 
+                    className="form-input" 
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </motion.div>
 
-              <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
-                <label htmlFor="email" className="form-label">Email</label>
-                <input 
-                  id="email" 
-                  type="email" 
-                  placeholder="captain@gmail.com" 
-                  required 
-                  className="form-input" 
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </motion.div>
+                <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
+                  <label htmlFor="email" className="form-label">Email Address</label>
+                  <input 
+                    id="email" 
+                    type="email" 
+                    placeholder="captain@gmail.com" 
+                    required 
+                    className="form-input" 
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </motion.div>
+              </div>
 
-              <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
-                <label htmlFor="title" className="form-label">Project title</label>
-                <input 
-                  id="title" 
-                  type="text" 
-                  placeholder="E-Commerce Website" 
-                  required 
-                  className="form-input" 
-                  value={formData.title}
-                  onChange={handleInputChange}
-                />
-              </motion.div>
+              {/* Row 2: Project Title and Category */}
+              <div className="form-row">
+                <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
+                  <label htmlFor="title" className="form-label">Project Title</label>
+                  <input 
+                    id="title" 
+                    type="text" 
+                    placeholder="E-Commerce Website" 
+                    required 
+                    className="form-input" 
+                    value={formData.title}
+                    onChange={handleInputChange}
+                  />
+                </motion.div>
 
-              <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
-                <label htmlFor="category" className="form-label">Project category</label>
-                <select 
-                  id="category" 
-                  required 
-                  className="form-select"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select category</option>
-                  <option value="website">Website</option>
-                  <option value="web-app">Web App</option>
-                  <option value="mobile-app">Mobile App</option>
-                  <option value="ai-ml">AI/ML App</option>
-                  <option value="automation">Automation/Scripts</option>
-                  <option value="other">Other</option>
-                </select>
-              </motion.div>
+                <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
+                  <label htmlFor="category" className="form-label">Project Category</label>
+                  <select 
+                    id="category" 
+                    required 
+                    className="form-select"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">✨ Select category</option>
+                    <option value="website">🌐 Website</option>
+                    <option value="web-app">💻 Web App</option>
+                    <option value="mobile-app">📱 Mobile App</option>
+                    <option value="ai-ml">🤖 AI/ML App</option>
+                    <option value="automation">⚡ Automation/Scripts</option>
+                    <option value="other">🔧 Other</option>
+                  </select>
+                </motion.div>
+              </div>
 
+              {/* Row 3: Full-width Description */}
               <motion.div whileFocus={{ scale: 1.02 }} className="form-group">
-                <label htmlFor="description" className="form-label">Project description</label>
+                <label htmlFor="description" className="form-label">Project Description</label>
                 <textarea 
                   id="description" 
                   rows={4} 
-                  placeholder="Describe your project requirements..." 
+                  placeholder="Describe your project requirements, goals, and any specific features you need. The more details you provide, the better I can understand your vision and deliver exactly what you're looking for..." 
                   required 
                   className="form-textarea" 
                   value={formData.description}
@@ -380,7 +419,7 @@ Email: ${formData.email}`.trim()
                     Launching Mission...
                   </>
                 ) : (
-                  <>🚀 Send Mail</>
+                  <>🚀 Send Message</>
                 )}
               </motion.button>
             </form>

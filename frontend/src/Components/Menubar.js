@@ -26,11 +26,48 @@ const Menubar = () => {
     setIsMenuOpen(false);
   };
 
+  // Handle navigation clicks
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    closeMobileMenu();
+    
+    // Small delay to ensure the click is processed
+    setTimeout(() => {
+      // Handle home navigation specifically
+      if (targetId === 'home') {
+        // Scroll to the very top of the page
+        window.scrollTo({ 
+          top: 0, 
+          left: 0, 
+          behavior: 'smooth' 
+        });
+        
+        // Also try scrolling the document element as a fallback
+        if (document.documentElement) {
+          document.documentElement.scrollTop = 0;
+        }
+        if (document.body) {
+          document.body.scrollTop = 0;
+        }
+      } else {
+        // For other sections, scroll to the specific element
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      }
+    }, 10);
+  };
+
   return (
     <>
       <nav className="navbar">
         <div className="nav-brand">
-          <a href="#home">
+          <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>
             <img src={logo} alt="Logo" className="logo" />
           </a>
         </div>
@@ -38,22 +75,22 @@ const Menubar = () => {
         {/* Desktop Menu */}
         <ul className={`nav-menu ${isMenuOpen ? 'nav-menu-active' : ''}`}>
           <li className="nav-item">
-            <a href="#home" className="nav-link" onClick={closeMobileMenu}>Home</a>
+            <a href="#home" className="nav-link" onClick={(e) => handleNavClick(e, 'home')}>Home</a>
           </li>
           <li className="nav-item">
-            <a href="#about" className="nav-link" onClick={closeMobileMenu}>About</a>
+            <a href="#about" className="nav-link" onClick={(e) => handleNavClick(e, 'about')}>About</a>
           </li>
           <li className="nav-item">
-            <a href="#skills" className="nav-link" onClick={closeMobileMenu}>Skills</a>
+            <a href="#skills" className="nav-link" onClick={(e) => handleNavClick(e, 'skills')}>Skills</a>
           </li>
           <li className="nav-item">
-            <a href="#work" className="nav-link" onClick={closeMobileMenu}>Projects</a>
+            <a href="#work" className="nav-link" onClick={(e) => handleNavClick(e, 'work')}>Projects</a>
           </li>
           <li className="nav-item">
-            <a href="#testimonials" className="nav-link" onClick={closeMobileMenu}>Testimonials</a>
+            <a href="#testimonials" className="nav-link" onClick={(e) => handleNavClick(e, 'testimonials')}>Testimonials</a>
           </li>
           <li className="nav-item">
-            <a href="#contact" className="nav-link" onClick={closeMobileMenu}>Contact</a>
+            <a href="#contact" className="nav-link" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
           </li>
         </ul>
        

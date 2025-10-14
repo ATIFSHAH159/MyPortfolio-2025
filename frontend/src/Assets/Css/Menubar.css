@@ -50,7 +50,7 @@
 }
 
 .nav-link {
-  color: #ffffff;
+  color: var(--text-color);
   font-weight: 700;
   font-size: 1.1rem;
   transition: all 0.3s ease;
@@ -60,7 +60,7 @@
 }
 
 .nav-link:hover {
-  color: #1de9ff;
+  color: var(--primary-color);
   transform: translateY(-2px);
 }
 
@@ -71,7 +71,7 @@
   height: 2px;
   bottom: 2px;
   left: 0;
-  background-color: #1de9ff;
+  background-color: var(--primary-color);
   transition: width 0.3s ease;
 }
 
@@ -88,8 +88,8 @@
 
 .theme-toggle {
   background: rgba(29, 233, 255, 0.1);
-  color: #1de9ff;
-  border: 1px solid rgba(29, 233, 255, 0.3);
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   width: 45px;
   height: 45px;
@@ -104,11 +104,11 @@
 .theme-toggle:hover {
   background: rgba(29, 233, 255, 0.2);
   transform: translateY(-2px) rotate(15deg);
-  box-shadow: 0 4px 15px rgba(29, 233, 255, 0.4);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .contact-btn {
-  background: #1de9ff;
+  background: var(--primary-color);
   color: #000000;
   border: none;
   border-radius: 50%;
@@ -125,7 +125,7 @@
 .contact-btn:hover {
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(29, 233, 255, 0.6);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .menu-toggle {
@@ -136,7 +136,7 @@
   width: 40px;
   height: 40px;
   background: rgba(29, 233, 255, 0.1);
-  border: 1px solid rgba(29, 233, 255, 0.3);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -145,7 +145,7 @@
 .menu-toggle span {
   width: 20px;
   height: 2px;
-  background-color: #1de9ff;
+  background-color: var(--primary-color);
   margin: 2px 0;
   transition: all 0.3s ease;
   transform-origin: center;
@@ -198,7 +198,7 @@
   top: 1rem;
   right: 1rem;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(29, 233, 255, 0.3);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -207,14 +207,14 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #ffffff;
+  color: var(--text-color);
   z-index: 10;
 }
 
 .modal-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
-  color: #1de9ff;
+  color: var(--primary-color);
 }
 
 .modal-icon {
@@ -224,14 +224,14 @@
 }
 
 .modal-title {
-  color: #1de9ff;
+  color: var(--primary-color);
   font-size: 1.5rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .modal-message {
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
