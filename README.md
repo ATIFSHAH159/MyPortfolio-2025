@@ -136,14 +136,14 @@ MyPortfolio/
 
 Below are screenshots of key sections in the application (Education appears after About):
 
-![About](src/Assets/Screenshots/About.png)
-![Education](src/Assets/Screenshots/Education.png)
-![Hero Section](src/Assets/Screenshots/HeroSection.png)
-![Skills](src/Assets/Screenshots/skills.png)
-![Projects](src/Assets/Screenshots/project.png)
-![Testimonials](src/Assets/Screenshots/Testimonials.png)
-![Contact](src/Assets/Screenshots/Contact.png)
-![Chatbot](src/Assets/Screenshots/chatbot.png)
+![About](frontend/src/Assets/Screenshots/About.png)
+![Education](frontend/src/Assets/Screenshots/Education.png)
+![Hero Section](frontend/src/Assets/Screenshots/HeroSection.png)
+![Skills](frontend/src/Assets/Screenshots/skills.png)
+![Projects](frontend/src/Assets/Screenshots/project.png)
+![Testimonials](frontend/src/Assets/Screenshots/Testimonials.png)
+![Contact](frontend/src/Assets/Screenshots/Contact.png)
+![Chatbot](frontend/src/Assets/Screenshots/chatbot.png)
 
 ## 🚀 Getting Started
 
@@ -158,7 +158,7 @@ Below are screenshots of key sections in the application (Education appears afte
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/ATIFSHAH159/Atif-portfolio-2025
+   git clone https://github.com/ATIFSHAH159/MyPortfolio-2025
    cd portfolio
    ```
 
@@ -297,4 +297,4 @@ If you have any questions or want to collaborate, feel free to reach out:
 
 ---
 
-**Built with ❤️ by Syed Atif Shah**
+<p align="center"><strong>Built with ❤️ by Syed Atif Shah</strong></p>
