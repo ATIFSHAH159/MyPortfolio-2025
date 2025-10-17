@@ -117,7 +117,7 @@ MyPortfolio/
 │   │   └── index.js
 │   ├── package.json
 │   ├── package-lock.json
-│   └── README.md
+│   
 └── Server/
     ├── Controllers/
     │   ├── emailController.js
@@ -134,11 +134,11 @@ MyPortfolio/
 
 ## 🖼️ Screenshots
 
-Below are screenshots of key sections in the application (Education appears after About):
+Below are screenshots of key sections in the application:
 
+![Hero Section](frontend/src/Assets/Screenshots/HeroSection.png)
 ![About](frontend/src/Assets/Screenshots/About.png)
 ![Education](frontend/src/Assets/Screenshots/Education.png)
-![Hero Section](frontend/src/Assets/Screenshots/HeroSection.png)
 ![Skills](frontend/src/Assets/Screenshots/skills.png)
 ![Projects](frontend/src/Assets/Screenshots/project.png)
 ![Testimonials](frontend/src/Assets/Screenshots/Testimonials.png)
@@ -265,18 +265,6 @@ If you have any questions or want to collaborate, feel free to reach out:
 - **Email**: [aatifshah15@gmail.com]
 ---
 
-⭐ **Star this repository if you found it helpful!**
-
-## 📈 Performance
-
-- **Lighthouse Score**: 90+ across all metrics
-- **Bundle Size**: Optimized with code splitting
-- **Loading Time**: < 3 seconds on average connection
-- **Mobile Performance**: Optimized for mobile devices
-- **API Response Time**: < 500ms for email service
-- **Server Uptime**: 99.9% availability
-- **Database**: No database required (stateless design)
-
 ## 🔌 API Endpoints
 
 ### Email Service
@@ -296,5 +284,5 @@ If you have any questions or want to collaborate, feel free to reach out:
 
 
 ---
-
+<p align="center"><strong>⭐Star this repository if you found it helpful!</strong></p>
 <p align="center"><strong>Built with ❤️ by Syed Atif Shah</strong></p>
