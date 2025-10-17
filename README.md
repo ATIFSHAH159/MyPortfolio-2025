@@ -117,7 +117,7 @@ MyPortfolio/
 │   │   └── index.js
 │   ├── package.json
 │   ├── package-lock.json
-│ 
+│   └── README.md
 └── Server/
     ├── Controllers/
     │   ├── emailController.js
@@ -134,7 +134,7 @@ MyPortfolio/
 
 ## 🖼️ Screenshots
 
-Below are screenshots of key sections in the application:
+Below are screenshots of key sections in the application (Education appears after About):
 
 ![About](src/Assets/Screenshots/About.png)
 ![Education](src/Assets/Screenshots/Education.png)

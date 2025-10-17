@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Assets/Css/Footer.css";
 import logo from '../Assets/Images/logo.png';
 import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { subscribeToNewsletter } from "../Services/Apis";
 
 // Animation variants
 const containerVariants = {
@@ -92,6 +93,32 @@ const pulseVariants = {
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubscribe = async () => {
+    setMessage("");
+    setError("");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const result = await subscribeToNewsletter(email);
+      setMessage(result.message || "Subscribed successfully!");
+      setEmail("");
+    } catch (err) {
+      setError(err.message || "Subscription failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
   
   return (
     <>
@@ -236,15 +263,29 @@ function Footer() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <input type="email" placeholder="Your email address" />
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+              />
               <motion.button
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap="tap"
+                onClick={handleSubscribe}
+                disabled={loading}
               >
-                Subscribe
+                {loading ? 'Subscribing...' : 'Subscribe'}
               </motion.button>
             </motion.div>
+            {message && (
+              <p style={{ color: '#27ae60', marginTop: '8px' }}>{message}</p>
+            )}
+            {error && (
+              <p style={{ color: '#e74c3c', marginTop: '8px' }}>{error}</p>
+            )}
           </motion.div>
         </motion.div>
       </motion.footer>

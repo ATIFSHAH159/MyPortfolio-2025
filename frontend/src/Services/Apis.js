@@ -56,3 +56,25 @@ export const sendChatMessage = async (message) => {
     throw error;
   }
 };
+
+// Subscribe to newsletter
+export const subscribeToNewsletter = async (email) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/email/subscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.message || 'Subscription failed');
+    }
+    return result;
+  } catch (error) {
+    console.error('Error subscribing to newsletter:', error);
+    throw error;
+  }
+};
