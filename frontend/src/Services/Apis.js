@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://my-portfolio-2025-lilac.vercel.app/api';
+const API_BASE_URL = 'my-portfolio-2025-lilac.vercel.app';
 
 // Send contact email
 export const sendContactEmail = async (emailData) => {
