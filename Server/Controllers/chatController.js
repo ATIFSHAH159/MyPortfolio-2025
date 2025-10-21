@@ -12,6 +12,15 @@ export const askAssistant = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Message is required' });
     }
 
+    // In Vercel serverless, spawning Python processes is not supported by default.
+    // Guard this path and return a friendly message when on Vercel.
+    if (process.env.VERCEL) {
+      return res.status(501).json({
+        success: false,
+        message: 'Assistant is unavailable on the serverless environment.',
+      });
+    }
+
     const pythonExecutable = process.env.PYTHON_PATH || 'python';
 
     const serverRoot = path.join(__dirname, '..');
