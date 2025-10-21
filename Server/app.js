@@ -13,7 +13,11 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:3000',
+      'https://my-portfolio-2025-lilac.vercel.app',
+      'https://my-portfolio-2025.vercel.app'
+    ],
     credentials: true,
   })
 );
@@ -29,6 +33,14 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     message: 'Server is running successfully!',
     timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    vercel: !!process.env.VERCEL,
+    availableEndpoints: [
+      'GET /api/health',
+      'POST /api/email/contact',
+      'POST /api/email/subscribe',
+      'POST /api/chat'
+    ]
   });
 });
 

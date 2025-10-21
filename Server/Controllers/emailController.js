@@ -14,6 +14,12 @@ const createTransporter = () => {
 // Send contact form email
 export const sendContactEmail = async (req, res) => {
   try {
+    console.log('Contact email request received:', req.body);
+    console.log('Environment variables check:', {
+      EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Not set',
+      EMAIL_PASS: process.env.EMAIL_PASS ? 'Set' : 'Not set'
+    });
+
     const { name, email, subject, message } = req.body;
 
     // Validation
