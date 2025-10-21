@@ -1,7 +1,4 @@
-// Use different API URLs based on environment
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://my-portfolio-2025-lilac.vercel.app/api'
-  : 'https://my-portfolio-2025-lilac.vercel.app/api'; // Use hosted backend for both local and production
+const API_BASE_URL = 'my-portfolio-2025-lilac.vercel.app';
 
 // Send contact email
 export const sendContactEmail = async (emailData) => {
