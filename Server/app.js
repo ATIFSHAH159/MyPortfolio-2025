@@ -75,6 +75,16 @@ app.get('/', (req, res) => {
 app.use('/api/email', emailRoutes);
 app.use('/api/chat', chatRoutes);
 
+// Test endpoint that doesn't require environment variables
+app.get('/api/test', (req, res) => {
+  res.status(200).json({
+    message: 'Test endpoint working!',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    vercel: !!process.env.VERCEL
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
@@ -109,21 +119,6 @@ app.use((req, res) => {
   });
 });
 
-// Export with error handling
-try {
-  export default app;
-} catch (error) {
-  console.error('App export error:', error);
-  // Create a minimal app for error cases
-  const errorApp = express();
-  errorApp.use(cors());
-  errorApp.get('*', (req, res) => {
-    res.status(500).json({
-      error: 'Application failed to start',
-      message: error.message
-    });
-  });
-  export default errorApp;
-}
+export default app;
 
 
