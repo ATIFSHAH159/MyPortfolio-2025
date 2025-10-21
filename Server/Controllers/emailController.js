@@ -2,6 +2,11 @@ import nodemailer from 'nodemailer';
 
 // Email transporter configuration
 const createTransporter = () => {
+  // Check if environment variables are set
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    throw new Error('Email configuration missing: EMAIL_USER and EMAIL_PASS environment variables are required');
+  }
+  
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
