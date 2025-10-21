@@ -16,6 +16,7 @@ app.use(
     origin: [
       process.env.FRONTEND_URL || 'http://localhost:3000',
       'https://my-portfolio-2025-lilac.vercel.app',
+      'https://my-portfolio-2025-6xhd.vercel.app',
       'https://my-portfolio-2025.vercel.app'
     ],
     credentials: true,
