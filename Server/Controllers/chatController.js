@@ -12,7 +12,7 @@ export const askAssistant = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Message is required' });
     }
 
-    const pythonExecutable = process.env.PYTHON_PATH || 'python';
+    const pythonExecutable = process.env.PYTHON_PATH || 'python3';
 
     const serverRoot = path.join(__dirname, '..');
     const scriptPath = path.join(serverRoot, 'AI Assistant', 'chat.py');
