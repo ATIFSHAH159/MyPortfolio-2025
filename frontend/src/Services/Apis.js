@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://myportfolio-2025-2m70.onrender.com';
 
 // Send contact email
 export const sendContactEmail = async (emailData) => {
