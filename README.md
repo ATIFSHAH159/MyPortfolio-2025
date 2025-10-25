@@ -268,16 +268,16 @@ If you have any questions or want to collaborate, feel free to reach out:
 ## 🔌 API Endpoints
 
 ### Email Service
-- **POST** `/api/email/contact` - Send contact form email
+- **POST** `/email/contact` - Send contact form email
   - **Body**: `{ name, email, subject, message }`
   - **Response**: `{ success: boolean, message: string }`
 
 ### Health Check
-- **GET** `/api/health` - Server health status
+- **GET** `/health` - Server health status
   - **Response**: `{ message: string, timestamp: string }`
 
 ### AI Assistant
-- **POST** `/api/chat` - Send a prompt to the AI assistant
+- **POST** `/chat` - Send a prompt to the AI assistant
   - **Body**: `{ message: string }`
   - **Response**: `{ success: boolean, response: string }`
 
